@@ -30,13 +30,13 @@
     "customizations": {
         "vscode": {
             "settings": {
-                // Language - Python (Python Extension Pack)
+                // Language - Python
                 "[python]": {
-                    // isort
+                    // Editor
+                    // NOTE ファイル保存時に`isort`にてインポート文を整理する
                     "editor.codeActionsOnSave": {
                         "source.organizeImports": true
-                    },
-                    "editor.formatOnType": true
+                    }
                 },
 
                 // Extension - autoDocstring (Python Extension Pack)
@@ -66,6 +66,11 @@
                 "python.linting.mypyEnabled": true,
                 "python.linting.mypyPath": "${workspaceFolder}/.venv/bin/mypy",
 
+                // Extension - isort
+                "isort.path": [
+                    "${workspaceFolder}/.venv/bin/isort"
+                ],
+
                 // Extension - VS Code Counter
                 "VSCodeCounter.exclude": [
                     "**/.gitignore",
@@ -87,7 +92,8 @@
                 "uctakeoff.vscode-counter",                 // VS Code Counter
 
                 // Programming language related
-                "leojhonsong.python-extension-pack"         // Python Extension Pack
+                "leojhonsong.python-extension-pack",        // Python Extension Pack
+                "ms-python.isort"                           // isort
             ]
         }
     }

@@ -42,9 +42,6 @@
                     "editor.formatOnType": false
                 },
 
-                // Extension - autoDocstring (Python Extension Pack)
-                "autoDocstring.quoteStyle": "'''",
-
                 // Extension - Python (Python Extension Pack)
                 "python.autoComplete.extraPaths": [
                     "${workspaceFolder}/.venv/lib/python3.10/site-packages"

@@ -1,0 +1,108 @@
+// Format details:
+// - https://containers.dev/implementors/json_reference/
+// Template Repository:
+// - https://github.com/devcontainers/templates/tree/template_go-postgres_1.2.2/src/python
+// - https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/python-3
+//   - Most of the contents of this repository have been migrated to the above repository.
+{
+    // # Scenario specific properties
+    // ## Image or Dockerfile specific properties
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "IMAGE_VERSION": "0.204.8",
+            "PYTHON_VERSION": "3.10"
+        }
+    },
+    "workspaceMount": "type=bind,src=${localEnv:HOME}/workspace/Git/python,dst=/root/workspace/Git/python,consistency=delegated",
+    "workspaceFolder": "/root/workspace/Git/python/dev-container-python",
+    "mounts": [
+        "type=bind,src=${localEnv:HOME}/.bash_aliases,dst=/root/.bash_aliases,consistency=delegated",
+        "type=bind,src=${localEnv:HOME}/.gitconfig,dst=/root/.gitconfig,consistency=delegated",
+        "type=bind,src=${localWorkspaceFolder}/.home_directory/.bash_history,dst=/root/.bash_history,consistency=delegated"
+    ],
+
+    // ## Docker Compose specific properties
+
+    // # General devcontainer.json properties
+    "name": "Python 3",
+    "remoteUser": "root",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                // Language - Python
+                "[python]": {
+                    // Editor
+                    "editor.codeActionsOnSave": {
+                        "source.organizeImports": true  // NOTE ファイル保存時にインポート文を整理するため、フォーマッタ(`isort.path`)を適用する
+                    },
+                    "editor.defaultFormatter": null,    // NOTE 既定のフォーマッタをOFFにする
+                    "editor.formatOnPaste": false,      // NOTE ファイル操作時にフォーマッタ(`python.formatting.provider`)を適用する
+                    "editor.formatOnSave": true,
+                    "editor.formatOnType": false
+                },
+
+                // Extension - Python (Python Extension Pack)
+                "python.autoComplete.extraPaths": [
+                    "${workspaceFolder}/.venv/lib/python3.10/site-packages"
+                ],
+                "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+                "python.formatting.provider": "black",  // NOTE Pythonモジュールに適用するフォーマッタ
+                "python.formatting.autopep8Path": "",
+                "python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
+                "python.linting.enabled": true,
+                "python.linting.lintOnSave": true,      // NOTE ファイル保存時にリンタ(`python.linting.XxxEnabled`)を適用する
+                "python.linting.flake8Enabled": true,
+                "python.linting.flake8Path": "${workspaceFolder}/.venv/bin/pflake8",
+                "python.linting.mypyEnabled": true,
+                "python.linting.mypyPath": "${workspaceFolder}/.venv/bin/mypy",
+                "python.linting.pylintEnabled": false,
+                "python.linting.pylintPath": "",
+                "python.terminal.activateEnvironment": false,
+                "python.venvPath": "${workspaceFolder}/.venv",
+
+                // Extension - Pylance (Python Extension Pack)
+                "python.analysis.extraPaths": [
+                    "${workspaceFolder}/.venv/lib/python3.10/site-packages"
+                ],
+                "python.analysis.typeCheckingMode": "basic",
+
+                // Extension - isort
+                "isort.path": [
+                    "${workspaceFolder}/.venv/bin/isort"
+                ],
+
+                // Extension - VS Code Counter
+                "VSCodeCounter.exclude": [
+                    "**/.gitignore",
+                    "**/.vscode/**",
+                    "**/node_modules/**",
+                    "**/.loc/**",
+                    "*.lock"
+                ],
+                "VSCodeCounter.outputAsText": false,
+                "VSCodeCounter.outputAsCSV": false,
+                "VSCodeCounter.history": 10,
+                "VSCodeCounter.outputDirectory": ".loc"
+            },
+            "extensions": [
+                // Common
+                "VisualStudioExptTeam.vscodeintellicode",   // Visual Studio IntelliCode
+                "EditorConfig.EditorConfig",                // EditorConfig for Visual Studio Code
+                "be5invis.toml",                            // TOML Language Support
+                "uctakeoff.vscode-counter",                 // VS Code Counter
+
+                // Programming language related
+                "leojhonsong.python-extension-pack",        // Python Extension Pack
+                "ms-python.isort"                           // isort
+            ]
+        }
+    }
+
+    // # Lifecycle scripts
+
+    // # Minimum host requirements
+
+    // # Port attributes
+
+}

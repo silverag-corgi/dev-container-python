@@ -29,6 +29,11 @@
   - [5.1. Docker](#51-docker)
   - [5.2. Ubuntu on WSL2](#52-ubuntu-on-wsl2)
   - [5.3. VSCode](#53-vscode)
+- [6. トラブルシューティング](#6-トラブルシューティング)
+  - [6.1. DockerDesktopの起動に失敗する](#61-dockerdesktopの起動に失敗する)
+    - [6.1.1. 参考サイト](#611-参考サイト)
+  - [6.2. DevContainerの起動に失敗する](#62-devcontainerの起動に失敗する)
+    - [6.2.1. 参考サイト](#621-参考サイト)
 
 ## 1. 概要
 
@@ -380,3 +385,83 @@
     - コマンドパレット(`F1`)から`Dev Containers: Attach to Running Container...`をクリックする
       - この操作によりVSCodeのウィンドウが新しく開かれるが、不要であればこの操作はスキップしてよい
     - `ファイル＞フォルダを開く...`から開きたいプロジェクトをクリックし、`OK`をクリックする
+
+## 6. トラブルシューティング
+
+本環境で頻発するエラーへの解決方法をまとめる。
+
+### 6.1. DockerDesktopの起動に失敗する
+
+- エラーログ
+
+```log
+Docker.Core.HttpBadResponseException:
+{
+  "message":"
+    1 error occurred:
+      * starting WSL integration service: synchronising agents: starting added distros: 1 error occurred:
+      * waiting for WSL integration for Ubuntu-22.04: timed out while polling for WSL distro integration to become ready in \"Ubuntu-22.04\"
+  "
+}
+
+  場所 Docker.Core.GoBackend.GoBackendClient.<PostNoBodyWithError>d__19.MoveNext() 場所 C:\workspaces\4.16.x\src\github.com\docker\pinata\win\src\Docker.Core\GoBackend\GoBackendClient.cs:行 226
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+  場所 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+  場所 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+  場所 Docker.Engines.WSL2.LinuxWSL2Engine.<DoStartAsync>d__11.MoveNext() 場所 C:\workspaces\4.16.x\src\github.com\docker\pinata\win\src\Docker.Engines\WSL2\LinuxWSL2Engine.cs:行 54
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+  場所 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+  場所 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+  場所 Docker.ApiServices.StateMachines.TaskExtensions.<WrapAsyncInCancellationException>d__0.MoveNext() 場所 C:\workspaces\4.16.x\src\github.com\docker\pinata\win\src\Docker.ApiServices\StateMachines\TaskExtensions.cs:行 29
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+  場所 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+  場所 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+  場所 Docker.ApiServices.StateMachines.StartTransition.<DoRunAsync>d__6.MoveNext() 場所 C:\workspaces\4.16.x\src\github.com\docker\pinata\win\src\Docker.ApiServices\StateMachines\StartTransition.cs:行 91
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+  場所 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+  場所 Docker.ApiServices.StateMachines.StartTransition.<DoRunAsync>d__6.MoveNext() 場所 C:\workspaces\4.16.x\src\github.com\docker\pinata\win\src\Docker.ApiServices\StateMachines\StartTransition.cs:行 118
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+  場所 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+  場所 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+  場所 Docker.ApiServices.StateMachines.EngineStateMachine.<StartAsync>d__15.MoveNext() 場所 C:\workspaces\4.16.x\src\github.com\docker\pinata\win\src\Docker.ApiServices\StateMachines\EngineStateMachine.cs:行 72
+--- 直前に例外がスローされた場所からのスタック トレースの終わり ---
+  場所 System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+  場所 System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+  場所 Docker.Engines.Engines.<StartAsync>d__23.MoveNext() 場所 C:\workspaces\4.16.x\src\github.com\docker\pinata\win\src\Docker.Engines\Engines.cs:行 109
+```
+
+- 解決方法
+
+```powershell
+> wsl --shutdown
+```
+
+#### 6.1.1. 参考サイト
+
+- [docker timed out while polling for WSL distro integration to become ready - Google 検索](https://www.google.com/search?q=docker+timed+out+while+polling+for+WSL+distro+integration+to+become+ready)
+- [wsl 2 - Docker not starting up after installation - Stack Overflow](https://stackoverflow.com/questions/75384185/docker-not-starting-up-after-installation)
+
+### 6.2. DevContainerの起動に失敗する
+
+- ダイアログ
+
+```log
+コンテナの設定中にエラーが発生しました。
+```
+
+- エラーログ
+
+```log
+[2023-05-11T08:45:50.808Z] ERROR: docker endpoint for "default" not found
+```
+
+- 解決方法
+
+```powershell
+> rm ~/.docker/contexts/meta/<SHA256>/meta.json
+```
+
+#### 6.2.1. 参考サイト
+
+- [devcontainer ERROR: docker endpoint for "default" not found - Google 検索](https://www.google.com/search?q=devcontainer+ERROR%3A+docker+endpoint+for+%22default%22+not+found)
+- [[BUG] docker endpoint for "default" not found - Issue #9956 - docker/compose - GitHub](https://github.com/docker/compose/issues/9956)

@@ -221,7 +221,7 @@
 1. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動する
 2. `Ubuntu 22.04.01 LTS`でGitのユーザー情報を設定するため、下記コマンドを実行する
     ```shell
-    $ git config --global user.name <ユーザー名>
+    $ git config --global user.name <ユーザ名>
     $ git config --global user.email <メールアドレス>
     ```
 3. `Ubuntu 22.04.01 LTS`で安全なディレクトリを設定するため、下記コマンドを実行する
@@ -229,17 +229,23 @@
     $ git config --global --add safe.directory '*'
     ```
     - ネットワークドライブに配置されたリポジトリフォルダにアクセスする際に脆弱性を警告するエラーを発生させないようにする
-4. `Ubuntu 22.04.01 LTS`で期待通りに設定されているか確認するため、下記コマンドを実行する
+4. `Ubuntu 22.04.01 LTS`で改行コード自動変換を設定するため、下記コマンドを実行する
     ```shell
-    $ git config --global -l
-    user.name=xxx
-    user.email=yyy@google.com
+    $ git config core.autocrlf input
+    ```
+5. `Ubuntu 22.04.01 LTS`で期待通りに設定されているか確認するため、下記コマンドを実行する
+    ```shell
+    $ git config --global --list
+    user.name=<ユーザ名>
+    user.email=<メールアドレス>
     safe.directory=*
+    core.autocrlf=input
     ```
 
 ##### 4.3.3.1. 参考サイト
 
 1. [git submodule update failed with 'fatal: detected dubious ownership in repository at' - Stack Overflow](https://stackoverflow.com/questions/72978485/git-submodule-update-failed-with-fatal-detected-dubious-ownership-in-repositor)
+2. [Git の自動改行コード変換 AutoCrlf ってどんな機能なの？ - ultra code](https://futureys.tokyo/what-is-autocrlf-of-git/)
 
 #### 4.3.4. Gitリポジトリのクローン
 

@@ -15,7 +15,6 @@ FROM mcr.microsoft.com/vscode/devcontainers/python:${IMAGE_VERSION}-${PYTHON_VER
 # Install packages.
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends iputils-ping
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends dnsutils
-RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends openjdk-17-jdk
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends task-japanese
 
 # Config python.

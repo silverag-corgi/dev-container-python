@@ -23,7 +23,7 @@
     - [4.3.6. (任意) 日本語化](#436-任意-日本語化)
       - [4.3.6.1. 参考サイト](#4361-参考サイト)
     - [4.3.7. (任意) エイリアス定義ファイルの作成](#437-任意-エイリアス定義ファイルの作成)
-  - [4.4. Docker](#44-docker)
+  - [4.4. Docker // TODO](#44-docker--todo)
     - [4.4.1. 参考サイト](#441-参考サイト)
 - [5. 起動方法](#5-起動方法)
   - [5.1. Docker](#51-docker)
@@ -102,6 +102,7 @@
   - CLI
 
 システム要件は下記リンクを参照する。
+
 - [Developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/remote/containers#_system-requirements)
 
 ## 4. セットアップ方法
@@ -294,7 +295,7 @@
 1. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動する
 2. `Ubuntu 22.04.01 LTS`でパッケージの一覧を更新し、パッケージをアップグレードするため、下記コマンドを実行する
     ```shell
-    $ sudo apt update && sudo apt upgrade
+    $ sudo apt -y update && sudo apt -y upgrade
     ```
 3. `Ubuntu 22.04.01 LTS`で日本語言語パックをインストールするため、下記コマンドを実行する
     ```shell
@@ -302,25 +303,25 @@
     ```
 4. `Ubuntu 22.04.01 LTS`でロケールを日本語・日本に設定するため、下記コマンドを実行して再起動する
     ```shell
-    $ sudo update-locale LANG=ja_JP.UTF8
+    $ sudo update-locale LANG=ja_JP.UTF-8
     ```
 5. `Ubuntu 22.04.01 LTS`でロケールが期待通りに設定されているか確認するため、下記コマンドを実行する
     ```shell
     $ locale
-    LANG=ja_JP.UTF8
+    LANG=ja_JP.UTF-8
     LANGUAGE=
-    LC_CTYPE="ja_JP.UTF8"
-    LC_NUMERIC="ja_JP.UTF8"
-    LC_TIME="ja_JP.UTF8"
-    LC_COLLATE="ja_JP.UTF8"
-    LC_MONETARY="ja_JP.UTF8"
-    LC_MESSAGES="ja_JP.UTF8"
-    LC_PAPER="ja_JP.UTF8"
-    LC_NAME="ja_JP.UTF8"
-    LC_ADDRESS="ja_JP.UTF8"
-    LC_TELEPHONE="ja_JP.UTF8"
-    LC_MEASUREMENT="ja_JP.UTF8"
-    LC_IDENTIFICATION="ja_JP.UTF8"
+    LC_CTYPE="ja_JP.UTF-8"
+    LC_NUMERIC="ja_JP.UTF-8"
+    LC_TIME="ja_JP.UTF-8"
+    LC_COLLATE="ja_JP.UTF-8"
+    LC_MONETARY="ja_JP.UTF-8"
+    LC_MESSAGES="ja_JP.UTF-8"
+    LC_PAPER="ja_JP.UTF-8"
+    LC_NAME="ja_JP.UTF-8"
+    LC_ADDRESS="ja_JP.UTF-8"
+    LC_TELEPHONE="ja_JP.UTF-8"
+    LC_MEASUREMENT="ja_JP.UTF-8"
+    LC_IDENTIFICATION="ja_JP.UTF-8"
     LC_ALL=
     ```
 6. `Ubuntu 22.04.01 LTS`で日本語マニュアルをインストールするため、下記コマンドを実行する
@@ -350,7 +351,7 @@
     alias ll='ls -AlF
     ```
 
-### 4.4. Docker
+### 4.4. Docker // TODO
 
 1. `Windows 10`で下記リンクからWindows版の`DockerDesktop`をダウンロードし、インストールする
     - [Get Started with Docker](https://www.docker.com/get-started/)

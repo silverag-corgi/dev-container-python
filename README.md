@@ -2,7 +2,7 @@
 
 - [1. 概要](#1-概要)
 - [2. 構成図](#2-構成図)
-  - [2.1. (補足事項) なぜWindows10から敢えてUbuntuを経由してContainersを起動する構成にしているのか](#21-補足事項-なぜwindows10から敢えてubuntuを経由してcontainersを起動する構成にしているのか)
+  - [2.1. (補足事項) なぜ`Windows 10`から敢えて`Ubuntu 22.04`を経由してコンテナを起動する構成にしているのか](#21-補足事項-なぜwindows-10から敢えてubuntu-2204を経由してコンテナを起動する構成にしているのか)
     - [2.1.1. 参考サイト](#211-参考サイト)
 - [3. 動作確認環境](#3-動作確認環境)
 - [4. セットアップ方法](#4-セットアップ方法)
@@ -10,7 +10,7 @@
     - [4.1.1. 参考サイト](#411-参考サイト)
   - [4.2. WSL2 (Windows Subsystem for Linux 2)](#42-wsl2-windows-subsystem-for-linux-2)
     - [4.2.1. 参考サイト](#421-参考サイト)
-  - [4.3. Ubuntu on WSL2](#43-ubuntu-on-wsl2)
+  - [4.3. Ubuntu 22.04 on WSL2](#43-ubuntu-2204-on-wsl2)
     - [4.3.1. Ubuntuのインストール](#431-ubuntuのインストール)
       - [4.3.1.1. 参考サイト](#4311-参考サイト)
     - [4.3.2. VPN接続時のDNSサーバーの設定](#432-vpn接続時のdnsサーバーの設定)
@@ -23,7 +23,7 @@
     - [4.3.6. (任意) 日本語化](#436-任意-日本語化)
       - [4.3.6.1. 参考サイト](#4361-参考サイト)
     - [4.3.7. (任意) エイリアス定義ファイルの作成](#437-任意-エイリアス定義ファイルの作成)
-  - [4.4. Docker // TODO](#44-docker--todo)
+  - [4.4. Docker](#44-docker)
     - [4.4.1. 参考サイト](#441-参考サイト)
 - [5. 起動方法](#5-起動方法)
   - [5.1. Docker](#51-docker)
@@ -51,14 +51,14 @@
 
 ![DevContainer構成図_現行](img/DevContainer構成図_現行.png)
 
-### 2.1. (補足事項) なぜWindows10から敢えてUbuntuを経由してContainersを起動する構成にしているのか
+### 2.1. (補足事項) なぜ`Windows 10`から敢えて`Ubuntu 22.04`を経由してコンテナを起動する構成にしているのか
 
 <details>
 <summary>
 詳細
 </summary>
 
-まずはタイトルを言い換えると、なぜWindows10から直接Containersを起動する構成にしていないのか、とも言える。
+まずはタイトルを言い換えると、なぜ`Windows 10`から直接コンテナを起動する構成にしていないのか、とも言える。
 
 この疑問に関しては、参考サイト2に記載されていた内容が理由になる。引用と和訳を以下に示す。
 
@@ -91,14 +91,13 @@
 ## 3. 動作確認環境
 
 - Windows 10 Pro 22H2
-- VSCode 1.76.2
-- Dev Containers v0.282.0
-- Docker Desktop v4.12.0
+- VSCode 1.81.1
+- Dev Containers v0.304.0
+- Docker Desktop 4.22.1
 - WSL2
-- Ubuntu 22.04.1 LTS
+- Ubuntu 22.04
   - CLI
-- Debian 11
-  - コードネーム：bullseye
+- Debian 11 (bullseye)
   - CLI
 
 システム要件は下記リンクを参照する。
@@ -115,7 +114,7 @@
     - [Download Visual Studio Code - Mac, Linux, Windows](https://code.visualstudio.com/download)
 2. `Windows 10`で下記リンクから`VSCode`に拡張機能をインストールする
     - [Japanese Language Pack for Visual Studio Code - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)
-    - [Dev Containers - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+    - [Remote Development - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
 #### 4.1.1. 参考サイト
 
@@ -143,13 +142,13 @@
 
 1. [WindowsにWSL2をインストールしてLinux（Ubuntu）環境を構築する - 株式会社ピース｜PEACE Inc.](https://www.4peace.co.jp/tech/569/)
 
-### 4.3. Ubuntu on WSL2
+### 4.3. Ubuntu 22.04 on WSL2
 
 #### 4.3.1. Ubuntuのインストール
 
-1. `Windows 10`で下記リンクから`Ubuntu 22.04.01 LTS`をインストールする
-    - [Ubuntu 22.04.1 LTS - Microsoft Store](https://apps.microsoft.com/store/detail/ubuntu-22041-lts/9PN20MSR04DW)
-2. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動すると初回設定画面が表示されるため、下記項目のみ設定する
+1. `Windows 10`で下記リンクから`Ubuntu 22.04`をインストールする
+    - [Ubuntu 22.04 - Microsoft Store](https://apps.microsoft.com/store/detail/ubuntu-22042-lts/9PN20MSR04DW)
+2. `Windows 10`で`Ubuntu 22.04`を起動すると初回設定画面が表示されるため、下記項目のみ設定する
     - 言語：English
     - ユーザー名：(任意)
     - パスワード：(任意)
@@ -188,22 +187,22 @@
     IPv4 アドレス . . . . . . . . . . . .: 192.168.11.6(優先)
     DNS サーバー. . . . . . . . . . . . .: 192.168.11.1(★)
     ```
-3. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動する
-4. `Ubuntu 22.04.01 LTS`でWSL設定ファイル(ディストリビューション版)を作成するため、下記コマンドを実行する
+3. `Windows 10`で`Ubuntu 22.04`を起動する
+4. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)を作成するため、下記コマンドを実行する
     ```shell
     $ sudo vi /etc/wsl.conf
     ```
-5. `Ubuntu 22.04.01 LTS`でWSL設定ファイル(ディストリビューション版)に下記内容を追記する
+5. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)に下記内容を追記する
     ```shell
     [network]
     generateResolvConf = false  # 名前解決設定ファイルの自動生成をOFFにする
     ```
-6. `Ubuntu 22.04.01 LTS`で名前解決設定ファイルを再作成するため、下記コマンドを実行する
+6. `Ubuntu 22.04`で名前解決設定ファイルを再作成するため、下記コマンドを実行する
     ```shell
     $ sudo rm /etc/resolv.conf  # シンボリックリンクの解除や内容の削除のために当該ファイルを削除する
     $ sudo vi /etc/resolv.conf
     ```
-7. `Ubuntu 22.04.01 LTS`で名前解決設定ファイルに下記内容を追記する
+7. `Ubuntu 22.04`で名前解決設定ファイルに下記内容を追記する
     ```shell
     nameserver 192.168.11.1 # VPN接続時のDNSサーバー(★)
     nameserver 8.8.8.8      # GoogleパブリックDNSサーバー
@@ -219,22 +218,22 @@
 
 #### 4.3.3. Gitの初期設定
 
-1. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動する
-2. `Ubuntu 22.04.01 LTS`でGitのユーザー情報を設定するため、下記コマンドを実行する
+1. `Windows 10`で`Ubuntu 22.04`を起動する
+2. `Ubuntu 22.04`でGitのユーザー情報を設定するため、下記コマンドを実行する
     ```shell
     $ git config --global user.name <ユーザ名>
     $ git config --global user.email <メールアドレス>
     ```
-3. `Ubuntu 22.04.01 LTS`で安全なディレクトリを設定するため、下記コマンドを実行する
+3. `Ubuntu 22.04`で安全なディレクトリを設定するため、下記コマンドを実行する
     ```shell
     $ git config --global --add safe.directory '*'
     ```
     - ネットワークドライブに配置されたリポジトリフォルダにアクセスする際に脆弱性を警告するエラーを発生させないようにする
-4. `Ubuntu 22.04.01 LTS`で改行コード自動変換を設定するため、下記コマンドを実行する
+4. `Ubuntu 22.04`で改行コード自動変換を設定するため、下記コマンドを実行する
     ```shell
     $ git config core.autocrlf input
     ```
-5. `Ubuntu 22.04.01 LTS`で期待通りに設定されているか確認するため、下記コマンドを実行する
+5. `Ubuntu 22.04`で期待通りに設定されているか確認するため、下記コマンドを実行する
     ```shell
     $ git config --global --list
     user.name=<ユーザ名>
@@ -250,12 +249,12 @@
 
 #### 4.3.4. Gitリポジトリのクローン
 
-1. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動する
-2. `Ubuntu 22.04.01 LTS`でGitフォルダを作成するため、下記コマンドを実行する
+1. `Windows 10`で`Ubuntu 22.04`を起動する
+2. `Ubuntu 22.04`でGitフォルダを作成するため、下記コマンドを実行する
     ```shell
     $ mkdir -p ~/workspace/Git/
     ```
-3. `Ubuntu 22.04.01 LTS`で必用なリポジトリをクローンするため、下記コマンドを実行する
+3. `Ubuntu 22.04`で必用なリポジトリをクローンするため、下記コマンドを実行する
     ```shell
     $ cd ~/workspace/Git/
     $ git clone <本リポジトリのリモートURL>
@@ -292,20 +291,20 @@
 
 実施することにより、英語を読む必要がなくなる。
 
-1. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動する
-2. `Ubuntu 22.04.01 LTS`でパッケージの一覧を更新し、パッケージをアップグレードするため、下記コマンドを実行する
+1. `Windows 10`で`Ubuntu 22.04`を起動する
+2. `Ubuntu 22.04`でパッケージの一覧を更新し、パッケージをアップグレードするため、下記コマンドを実行する
     ```shell
     $ sudo apt -y update && sudo apt -y upgrade
     ```
-3. `Ubuntu 22.04.01 LTS`で日本語言語パックをインストールするため、下記コマンドを実行する
+3. `Ubuntu 22.04`で日本語言語パックをインストールするため、下記コマンドを実行する
     ```shell
     $ sudo apt -y install language-pack-ja
     ```
-4. `Ubuntu 22.04.01 LTS`でロケールを日本語・日本に設定するため、下記コマンドを実行して再起動する
+4. `Ubuntu 22.04`でロケールを日本語・日本に設定するため、下記コマンドを実行して再起動する
     ```shell
     $ sudo update-locale LANG=ja_JP.UTF-8
     ```
-5. `Ubuntu 22.04.01 LTS`でロケールが期待通りに設定されているか確認するため、下記コマンドを実行する
+5. `Ubuntu 22.04`でロケールが期待通りに設定されているか確認するため、下記コマンドを実行する
     ```shell
     $ locale
     LANG=ja_JP.UTF-8
@@ -324,7 +323,7 @@
     LC_IDENTIFICATION="ja_JP.UTF-8"
     LC_ALL=
     ```
-6. `Ubuntu 22.04.01 LTS`で日本語マニュアルをインストールするため、下記コマンドを実行する
+6. `Ubuntu 22.04`で日本語マニュアルをインストールするため、下記コマンドを実行する
     ```shell
     $ sudo apt -y install manpages-ja manpages-ja-dev
     ```
@@ -337,28 +336,28 @@
 
 実施することにより、`Ubuntu on WSL2`と`Debian on DevContainer`でエイリアス定義を共有することができる。
 
-1. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動する
-2. `Ubuntu 22.04.01 LTS`でエイリアス定義ファイルを作成するため、下記コマンドを実行する
+1. `Windows 10`で`Ubuntu 22.04`を起動する
+2. `Ubuntu 22.04`でエイリアス定義ファイルを作成するため、下記コマンドを実行する
     ```shell
     $ touch ~/.bash_aliases
     ```
-3. `Ubuntu 22.04.01 LTS`でエイリアス定義ファイルを開くため、下記コマンドを実行する
+3. `Ubuntu 22.04`でエイリアス定義ファイルを開くため、下記コマンドを実行する
     ```shell
     $ vi ~/.bash_aliases
     ```
-4. `Ubuntu 22.04.01 LTS`でエイリアス定義ファイルに下記のように任意のエイリアスを記載する
+4. `Ubuntu 22.04`でエイリアス定義ファイルに下記のように任意のエイリアスを記載する
     ```shell
     alias ll='ls -AlF
     ```
 
-### 4.4. Docker // TODO
+### 4.4. Docker
 
 1. `Windows 10`で下記リンクからWindows版の`DockerDesktop`をダウンロードし、インストールする
     - [Get Started with Docker](https://www.docker.com/get-started/)
 2. `Windows 10`で`DockerDesktop`を起動する
 3. `Windows 10`でWSL2ベースエンジンを使用する設定にするため、`DockerDesktop`の下記設定を有効化する
     - `Settings => General => Use the WSL 2 based engine`
-4. `Windows 10`で`Ubuntu 22.04.01 LTS`内でDockerのコマンドを実行できるようにするため、`DockerDesktop`の下記設定を有効化する
+4. `Windows 10`で`Ubuntu 22.04`内でDockerのコマンドを実行できるようにするため、`DockerDesktop`の下記設定を有効化する
     - `Settings => Resources => WSL Integration => Enable integration with my default WSL distro`
     - `Settings => Resources => WSL Integration => Ubuntu-22.04`
 
@@ -374,8 +373,8 @@
 
 ### 5.2. Ubuntu on WSL2
 
-1. `Windows 10`で`Ubuntu 22.04.01 LTS`を起動する
-2. `Ubuntu 22.04.01 LTS`で`dev-container-python`ディレクトリに移動するため、下記コマンドを実行する
+1. `Windows 10`で`Ubuntu 22.04`を起動する
+2. `Ubuntu 22.04`で`dev-container-python`ディレクトリに移動するため、下記コマンドを実行する
     ```shell
     $ cd ~/workspace/Git/dev-container-python/
     ```

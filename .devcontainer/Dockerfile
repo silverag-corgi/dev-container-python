@@ -14,8 +14,10 @@ FROM mcr.microsoft.com/vscode/devcontainers/python:${IMAGE_VERSION}-${PYTHON_VER
 
 # Install packages.
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends task-japanese
+RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends bash-completion
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends iputils-ping
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends dnsutils
+RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends tree
 
 # Config python.
 RUN python -m pip install --upgrade pip
@@ -27,6 +29,17 @@ RUN echo "" >> ~/.bashrc && \
     echo "# set alias definition." >> ~/.bashrc && \
     echo "if [ -f ~/.bash_aliases ]; then" >> ~/.bashrc && \
     echo "    . ~/.bash_aliases" >> ~/.bashrc && \
+    echo "fi" >> ~/.bashrc
+
+# Add a proc to enable programmable completion features.
+RUN echo "" >> ~/.bashrc && \
+    echo "# enable programmable completion features." >> ~/.bashrc && \
+    echo "if ! shopt -oq posix; then" >> ~/.bashrc && \
+    echo "    if [ -f /usr/share/bash-completion/bash_completion ]; then" >> ~/.bashrc && \
+    echo "        . /usr/share/bash-completion/bash_completion" >> ~/.bashrc && \
+    echo "    elif [ -f /etc/bash_completion ]; then" >> ~/.bashrc && \
+    echo "        . /etc/bash_completion" >> ~/.bashrc && \
+    echo "    fi" >> ~/.bashrc && \
     echo "fi" >> ~/.bashrc
 
 # Add a proc to display time in the bash_histroy.

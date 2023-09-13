@@ -54,7 +54,7 @@
 コンテナ内にあるファイルの編集を`VSCode`上で行える。
 ソースコードに関しては、マウントすることによりコンテナ内で永続化できる。
 
-![](img/DevContainer構成図_現行.png)
+![](img/DevContainer構成図/DockerDesktop版/DevContainer構成図_現行.png)
 
 ### 2.1. [補足事項] なぜWindowsから敢えてUbuntuを経由してコンテナを起動する構成にしているのか
 
@@ -85,7 +85,7 @@
 実際、あるリポジトリをビルドした際にはとても遅く感じた上に、コマンドの返却も10秒程度の遅延があった。
 このことから、元々は下記構成図であったが上記構成図に変更した。
 
-![](img/DevContainer構成図_旧式.png)
+![](img/DevContainer構成図/DockerDesktop版/DevContainer構成図_旧式.png)
 </details>
 
 #### 2.1.1. 参考サイト

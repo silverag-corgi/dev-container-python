@@ -2,9 +2,10 @@
 
 - [1. 概要](#1-概要)
 - [2. 構成図](#2-構成図)
-  - [2.1. (補足事項) なぜ`Windows 10`から敢えて`Ubuntu 22.04`を経由してコンテナを起動する構成にしているのか](#21-補足事項-なぜwindows-10から敢えてubuntu-2204を経由してコンテナを起動する構成にしているのか)
+  - [2.1. \[補足事項\] なぜWindowsから敢えてUbuntuを経由してコンテナを起動する構成にしているのか](#21-補足事項-なぜwindowsから敢えてubuntuを経由してコンテナを起動する構成にしているのか)
     - [2.1.1. 参考サイト](#211-参考サイト)
 - [3. 動作確認環境](#3-動作確認環境)
+  - [3.1. 参考サイト](#31-参考サイト)
 - [4. セットアップ方法](#4-セットアップ方法)
   - [4.1. VSCode (Visual Studio Code)](#41-vscode-visual-studio-code)
     - [4.1.1. 参考サイト](#411-参考サイト)
@@ -13,27 +14,31 @@
   - [4.3. Ubuntu 22.04 on WSL2](#43-ubuntu-2204-on-wsl2)
     - [4.3.1. Ubuntuのインストール](#431-ubuntuのインストール)
       - [4.3.1.1. 参考サイト](#4311-参考サイト)
-    - [4.3.2. VPN接続時のDNSサーバーの設定](#432-vpn接続時のdnsサーバーの設定)
+    - [4.3.2. DNSサーバーの設定](#432-dnsサーバーの設定)
       - [4.3.2.1. 参考サイト](#4321-参考サイト)
-    - [4.3.3. Gitの初期設定](#433-gitの初期設定)
+    - [4.3.3. Gitの設定](#433-gitの設定)
       - [4.3.3.1. 参考サイト](#4331-参考サイト)
     - [4.3.4. Gitリポジトリのクローン](#434-gitリポジトリのクローン)
-    - [4.3.5. (推奨) WSL2のメモリサイズの設定](#435-推奨-wsl2のメモリサイズの設定)
+    - [4.3.5. \[任意\] WSL2のメモリサイズの設定](#435-任意-wsl2のメモリサイズの設定)
       - [4.3.5.1. 参考サイト](#4351-参考サイト)
-    - [4.3.6. (任意) 日本語化](#436-任意-日本語化)
+    - [4.3.6. \[任意\] 日本語化](#436-任意-日本語化)
       - [4.3.6.1. 参考サイト](#4361-参考サイト)
-    - [4.3.7. (任意) エイリアス定義ファイルの作成](#437-任意-エイリアス定義ファイルの作成)
-  - [4.4. Docker](#44-docker)
+    - [4.3.7. \[任意\] エイリアス定義ファイルの作成](#437-任意-エイリアス定義ファイルの作成)
+  - [4.4. Docker Desktop](#44-docker-desktop)
     - [4.4.1. 参考サイト](#441-参考サイト)
 - [5. 起動方法](#5-起動方法)
-  - [5.1. Docker](#51-docker)
-  - [5.2. Ubuntu on WSL2](#52-ubuntu-on-wsl2)
-  - [5.3. VSCode](#53-vscode)
+  - [5.1. Docker Desktop](#51-docker-desktop)
+  - [5.2. VSCode](#52-vscode)
 - [6. トラブルシューティング](#6-トラブルシューティング)
   - [6.1. DockerDesktopの起動に失敗する](#61-dockerdesktopの起動に失敗する)
-    - [6.1.1. 参考サイト](#611-参考サイト)
+    - [6.1.1. エラーログ](#611-エラーログ)
+    - [6.1.2. 解決方法](#612-解決方法)
+    - [6.1.3. 参考サイト](#613-参考サイト)
   - [6.2. DevContainerの起動に失敗する](#62-devcontainerの起動に失敗する)
-    - [6.2.1. 参考サイト](#621-参考サイト)
+    - [6.2.1. ダイアログ](#621-ダイアログ)
+    - [6.2.2. エラーログ](#622-エラーログ)
+    - [6.2.3. 解決方法](#623-解決方法)
+    - [6.2.4. 参考サイト](#624-参考サイト)
 
 ## 1. 概要
 
@@ -49,18 +54,18 @@
 コンテナ内にあるファイルの編集を`VSCode`上で行える。
 ソースコードに関しては、マウントすることによりコンテナ内で永続化できる。
 
-![DevContainer構成図_現行](img/DevContainer構成図_現行.png)
+![](img/DevContainer構成図_現行.png)
 
-### 2.1. (補足事項) なぜ`Windows 10`から敢えて`Ubuntu 22.04`を経由してコンテナを起動する構成にしているのか
+### 2.1. [補足事項] なぜWindowsから敢えてUbuntuを経由してコンテナを起動する構成にしているのか
 
 <details>
 <summary>
 詳細
 </summary>
 
-まずはタイトルを言い換えると、なぜ`Windows 10`から直接コンテナを起動する構成にしていないのか、とも言える。
+まずはタイトルを言い換えると、なぜWindowsから直接コンテナを起動する構成にしていないのか、とも言える。
 
-この疑問に関しては、参考サイト2に記載されていた内容が理由になる。引用と和訳を以下に示す。
+この疑問に関しては、参考サイト`1.2.`に記載されていた内容が理由になる。引用と和訳を以下に示す。
 
 > Best practices
 > 
@@ -80,13 +85,14 @@
 実際、あるリポジトリをビルドした際にはとても遅く感じた上に、コマンドの返却も10秒程度の遅延があった。
 このことから、元々は下記構成図であったが上記構成図に変更した。
 
-![DevContainer構成図_旧式](img/DevContainer構成図_旧式.png)
+![](img/DevContainer構成図_旧式.png)
 </details>
 
 #### 2.1.1. 参考サイト
 
-1. [WSL2 + VSCode DevContainerでFilesharingの警告 - Qiita](https://qiita.com/noonworks/items/5d49e019e794dbabe92a)
-2. [Docker Desktop WSL 2 backend | Docker Documentation](https://docs.docker.com/desktop/windows/wsl/#best-practices)
+1. [devcontainer wsl2 - Google 検索](https://www.google.com/search?q=devcontainer+wsl2)
+    1. [WSL2 + VSCode DevContainerでFilesharingの警告 - Qiita](https://qiita.com/noonworks/items/5d49e019e794dbabe92a)
+    2. [Docker Desktop WSL 2 backend | Docker Documentation](https://docs.docker.com/desktop/windows/wsl/#best-practices)
 
 ## 3. 動作確認環境
 
@@ -100,9 +106,10 @@
 - Debian 11 (bullseye)
   - CLI
 
-システム要件は下記リンクを参照する。
+### 3.1. 参考サイト
 
-- [Developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/remote/containers#_system-requirements)
+1. [Docker DevContainer - Google 検索](https://www.google.com/search?q=Docker+DevContainer)
+    - [Developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/remote/containers#_system-requirements)
 
 ## 4. セットアップ方法
 
@@ -118,29 +125,30 @@
 
 #### 4.1.1. 参考サイト
 
-1. [VSCode × Docker で快適な開発環境をあなたにも](https://weseek.co.jp/tech/2331/)
-2. [Get started with development Containers in Visual Studio Code](https://code.visualstudio.com/docs/remote/containers-tutorial)
+1. [Docker DevContainer - Google 検索](https://www.google.com/search?q=Docker+DevContainer)
+    1. [VSCode × Docker で快適な開発環境をあなたにも](https://weseek.co.jp/tech/2331/)
+    2. [Get started with development Containers in Visual Studio Code](https://code.visualstudio.com/docs/remote/containers-tutorial)
 
 ### 4.2. WSL2 (Windows Subsystem for Linux 2)
 
-1. `Windows 10`で管理者として`PowerShell`を起動する
-2. `Windows 10`で`WSL`を有効化するため、下記コマンドを`PowerShell`で実行する
-    ```powershell
+1. `Windows 10`で`WSL`を有効化するため、下記コマンドを`PowerShell`(管理者)で実行する
+    ```shell
+    > # WSLを有効化する
     > dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-    ```
-3. `Windows 10`で仮想マシンプラットフォームを有効化するため、下記コマンドを`PowerShell`で実行する
-    ```powershell
+    > # 仮想マシンプラットフォームを有効化する
     > dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
     ```
-4. `Windows 10`を再起動する
-5. `Windows 10`で`WSL2`をデフォルトに設定するため、下記コマンドを`PowerShell`で実行する
-    ```powershell
+2. `Windows 10`を再起動する
+3. `Windows 10`で`WSL2`をデフォルトに設定するため、下記コマンドを`PowerShell`で実行する
+    ```shell
+    > # WSLのデフォルトにバージョン2を設定する
     > wsl --set-default-version 2
     ```
 
 #### 4.2.1. 参考サイト
 
-1. [WindowsにWSL2をインストールしてLinux（Ubuntu）環境を構築する - 株式会社ピース｜PEACE Inc.](https://www.4peace.co.jp/tech/569/)
+1. [wsl2 ubuntu インストール - Google 検索](https://www.google.com/search?q=wsl2+ubuntu+インストール)
+    1. [WindowsにWSL2をインストールしてLinux（Ubuntu）環境を構築する | 株式会社ピース｜PEACE Inc.](https://www.4peace.co.jp/blog_tech/569/)
 
 ### 4.3. Ubuntu 22.04 on WSL2
 
@@ -152,160 +160,203 @@
     - 言語：English
     - ユーザー名：(任意)
     - パスワード：(任意)
-3. `Windows 10`で`PowerShell`を起動する
-4. `Windows 10`で`Ubuntu 22.04`が`WSL2`にインストールされていることを確認するため、下記コマンドを`PowerShell`で実行し、`Ubuntu 22.04`の`VERSION`が`2`になっていることを確認する
-    ```powershell
+3. `Windows 10`でディストリビューション一覧を表示するため、下記コマンドを`PowerShell`で実行する
+    ```shell
+    > # ディストリビューション一覧を表示する
     > wsl --list --verbose
       NAME                   STATE           VERSION
     * Ubuntu-22.04           Running         2
     ```
-    ※`VERSION`が`1`であった場合は、`2`に変更するため、下記コマンドを`PowerShell`で実行する
-    ```powershell
-    > wsl --set-version Ubuntu-22.04 2
-    ```
-5. `Windows 10`で`Ubuntu 22.04`のネットワークドライブを参照できるか確認するために、下記コマンドを`PowerShell`で実行する
-    ```powershell
-    > explorer "\\wsl$\Ubuntu-22.04"
-    ```
+4. `Windows 10`で`Ubuntu 22.04`が`WSL2`にインストールされていることを確認する
+    - `VERSION`が`2`であった場合は問題ない
+    - `VERSION`が`1`であった場合は`2`に設定するため、下記コマンドを`PowerShell`で実行する
+      ```shell
+      > # Ubuntu-22.04にバージョン2を設定する
+      > wsl --set-version Ubuntu-22.04 2
+      ```
+5. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
+    - 画面左下に`WSL2: Ubuntu-22.04`と表示されること
 
 ##### 4.3.1.1. 参考サイト
 
-1. [WindowsにWSL2をインストールしてLinux（Ubuntu）環境を構築する - 株式会社ピース｜PEACE Inc.](https://www.4peace.co.jp/tech/569/)
-2. [WSLのインストール | Microsoft Learn](https://learn.microsoft.com/ja-jp/windows/wsl/install)
+1. [wsl2 ubuntu インストール - Google 検索](https://www.google.com/search?q=wsl2+ubuntu+インストール)
+    1. [WindowsにWSL2をインストールしてLinux（Ubuntu）環境を構築する | 株式会社ピース｜PEACE Inc.](https://www.4peace.co.jp/blog_tech/569/)
+2. [wsl 変換 - Google 検索](https://www.google.com/search?q=wsl+変換)
+    1. [WSLを２に更新する - Qiita](https://qiita.com/nanaki11/items/a12a76c00e210ac45b98)
 
-#### 4.3.2. VPN接続時のDNSサーバーの設定
+#### 4.3.2. DNSサーバーの設定
 
-1. `Windows 10`で`PowerShell`を起動する
-2. `Windows 10`でVPN接続時のDNSサーバーを確認するため、下記コマンドを`PowerShell`で実行する
-    ```powershell
+1. `Windows 10`でネットワーク設定情報を表示するため、下記コマンドを`PowerShell`で実行する
+    ```shell
+    > # ネットワーク設定情報を表示する
     > ipconfig /all
-    
+
     イーサネット アダプター イーサネット:
 
-    接続固有の DNS サフィックス . . . . .:
-    説明. . . . . . . . . . . . . . . . .: Realtek PCIe GBE Family Controller
-    IPv4 アドレス . . . . . . . . . . . .: 192.168.11.6(優先)
-    DNS サーバー. . . . . . . . . . . . .: 192.168.11.1(★)
+      IPv4 アドレス . . . . . . . . . . . .: 192.168.11.3(優先)
+      サブネット マスク . . . . . . . . . .: 255.255.255.0
+      DNS サーバー. . . . . . . . . . . . .: 192.168.11.1
     ```
-3. `Windows 10`で`Ubuntu 22.04`を起動する
-4. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)を作成するため、下記コマンドを実行する
+2. `Windows 10`でDNSサーバーをコピーする
+    - VPNに接続している場合は、VPN経由での設定情報をコピーする
+3. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
+4. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)を作成して編集するため、下記コマンドを実行する
     ```shell
-    $ sudo vi /etc/wsl.conf
+    $ # WSL設定ファイル(ディストリビューション版)を作成する
+    $ sudo touch /etc/wsl.conf
+    $ # アクセス権限を設定する
+    $ sudo chmod 666 /etc/wsl.conf
+    $ # 当該ファイルを開く
+    $ code /etc/wsl.conf
     ```
 5. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)に下記内容を追記する
-    ```shell
+    ```conf
     [network]
     generateResolvConf = false  # 名前解決設定ファイルの自動生成をOFFにする
     ```
-6. `Ubuntu 22.04`で名前解決設定ファイルを再作成するため、下記コマンドを実行する
+6. `Ubuntu 22.04`で名前解決設定ファイルを作成して編集するため、下記コマンドを実行する
     ```shell
-    $ sudo rm /etc/resolv.conf  # シンボリックリンクの解除や内容の削除のために当該ファイルを削除する
-    $ sudo vi /etc/resolv.conf
+    $ # シンボリックリンクを解除して内容を初期化するため、名前解決設定ファイルを削除する
+    $ sudo rm /etc/resolv.conf
+    $ # 名前解決設定ファイルを作成する
+    $ sudo touch /etc/resolv.conf
+    $ # アクセス権限を設定する
+    $ sudo chmod 666 /etc/resolv.conf
+    $ # 当該ファイルを開く
+    $ code /etc/resolv.conf
     ```
 7. `Ubuntu 22.04`で名前解決設定ファイルに下記内容を追記する
-    ```shell
-    nameserver 192.168.11.1 # VPN接続時のDNSサーバー(★)
+    ```conf
+    nameserver 192.168.11.1 # DNSサーバー(2でコピーした情報)
     nameserver 8.8.8.8      # GoogleパブリックDNSサーバー
     ```
-8. `Windows 10`でWSLを再起動するため、下記コマンドを`PowerShell`で実行する
+8. `Windows 10`で`WSL`を再起動するため、下記コマンドを`PowerShell`で実行する
     ```shell
+    > # WSLを再起動する
     > wsl --shutdown
     ```
 
 ##### 4.3.2.1. 参考サイト
 
-1. [WSL2 で dns の名前解決ができなくなってネット接続できなくなった場合の対処方法 - Qiita](https://qiita.com/kkato233/items/1fc71bde5a6d94f1b982)
+1. [wsl2 ubuntu dns - Google 検索](https://www.google.com/search?q=wsl2+ubuntu+dns)
+    1. [WSL2 で dns の名前解決ができなくなってネット接続できなくなった場合の対処方法 - Qiita](https://qiita.com/kkato233/items/1fc71bde5a6d94f1b982)
 
-#### 4.3.3. Gitの初期設定
+#### 4.3.3. Gitの設定
 
-1. `Windows 10`で`Ubuntu 22.04`を起動する
-2. `Ubuntu 22.04`でGitのユーザー情報を設定するため、下記コマンドを実行する
+1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
+2. `Ubuntu 22.04`でGit設定ファイルを作成して編集するため、下記コマンドを実行する
     ```shell
-    $ git config --global user.name <ユーザ名>
-    $ git config --global user.email <メールアドレス>
+    $ # Git設定ファイルを作成する
+    $ touch ~/.gitconfig
+    $ # 当該ファイルを開く
+    $ code ~/.gitconfig
     ```
-3. `Ubuntu 22.04`で安全なディレクトリを設定するため、下記コマンドを実行する
-    ```shell
-    $ git config --global --add safe.directory '*'
+3. `Ubuntu 22.04`でGit設定ファイルに下記内容を追記する
+    ```conf
+    [user]
+        ; Gitアカウント情報
+        name = <ユーザ名>
+        email = <メールアドレス>
+    [credential]
+        ; 認証情報を保存する (24時間キャッシュする)
+        helper = cache --timeout=86400
+    [safe]
+        ; ディレクトリの安全性を保証する (全てのディレクトリ)
+        directory = *
+    [core]
+        ; 改行コードを自動的に変換する (チェックアウト=>元のまま,コミット=>Linuxの改行コードへの変換)
+        autocrlf = input
     ```
-    - ネットワークドライブに配置されたリポジトリフォルダにアクセスする際に脆弱性を警告するエラーを発生させないようにする
-4. `Ubuntu 22.04`で改行コード自動変換を設定するため、下記コマンドを実行する
+    - 自作の`.gitconfig`は`home-directory`リポジトリを参照する
+4. `Ubuntu 22.04`で期待通りに設定されているか確認するため、下記コマンドを実行する
     ```shell
-    $ git config core.autocrlf input
-    ```
-5. `Ubuntu 22.04`で期待通りに設定されているか確認するため、下記コマンドを実行する
-    ```shell
+    $ # Git設定一覧を表示する
     $ git config --global --list
     user.name=<ユーザ名>
     user.email=<メールアドレス>
+    credential.helper=cache --timeout=86400
     safe.directory=*
     core.autocrlf=input
     ```
 
 ##### 4.3.3.1. 参考サイト
 
-1. [git submodule update failed with 'fatal: detected dubious ownership in repository at' - Stack Overflow](https://stackoverflow.com/questions/72978485/git-submodule-update-failed-with-fatal-detected-dubious-ownership-in-repositor)
-2. [Git の自動改行コード変換 AutoCrlf ってどんな機能なの？ - ultra code](https://futureys.tokyo/what-is-autocrlf-of-git/)
+1. [.gitconfig おすすめ - Google 検索](https://www.google.com/search?q=.gitconfig+おすすめ)
+    1. [Gitを使い始めたら一番最初にやりたい `git config`設定メモ](https://blog.katsubemakito.net/git/git-config-1st)
+2. [git log fatal: detected dubious ownership in repository at - Google 検索](https://www.google.com/search?q=git+log+fatal%3A+detected+dubious+ownership+in+repository+at)
+    1. [git submodule update failed with 'fatal: detected dubious ownership in repository at' - Stack Overflow](https://stackoverflow.com/questions/72978485/git-submodule-update-failed-with-fatal-detected-dubious-ownership-in-repositor)
+3. [git autocrlf - Google 検索](https://www.google.com/search?q=git+autocrlf)
+    1. [Git の自動改行コード変換 AutoCrlf ってどんな機能なの？ - ultra code](https://futureys.tokyo/what-is-autocrlf-of-git/)
 
 #### 4.3.4. Gitリポジトリのクローン
 
-1. `Windows 10`で`Ubuntu 22.04`を起動する
+1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
 2. `Ubuntu 22.04`でGitフォルダを作成するため、下記コマンドを実行する
     ```shell
-    $ mkdir -p ~/workspace/Git/
+    $ # Gitフォルダ(例：~/workspace/Git/)を作成する
+    $ mkdir -p <Gitフォルダパス>
     ```
 3. `Ubuntu 22.04`で必用なリポジトリをクローンするため、下記コマンドを実行する
     ```shell
-    $ cd ~/workspace/Git/
-    $ git clone <本リポジトリのリモートURL>
-    $ git clone <DevContainer環境で開発するリポジトリのリモートURL> -b <ブランチ名>
+    $ # Gitフォルダに移動する
+    $ cd <Gitフォルダパス>
+    $ # 必要なリポジトリをクローンする
+    $ git clone <リモートリポジトリのURL>
     ```
 
-#### 4.3.5. (推奨) WSL2のメモリサイズの設定
+#### 4.3.5. [任意] WSL2のメモリサイズの設定
 
 実施することにより、`Windows 10`のメモリ枯渇を防ぐ。
-原因や発生する状況などは参考サイト1を参照する。
+原因や発生する状況などは参考サイト`1.1.`を参照する。
 
 1. `Windows 10`で`コマンドプロンプト`を起動する
 2. `Windows 10`でWSL設定ファイル(グローバル版)を作成するため、下記コマンドを実行する
-    ```powershell
+    ```shell
+    > # WSL設定ファイル(グローバル版)を作成する
     > type nul > %USERPROFILE%\.wslconfig
+    > # 当該ファイルを開く
     > notepad %USERPROFILE%\.wslconfig
     ```
 3. `Windows 10`でWSL設定ファイル(グローバル版)に下記内容を追記する
-    ```powershell
+    ```conf
     [wsl2]
     memory=6GB
     swap=2GB
     ```
-4. `Windows 10`でWSLを再起動するため、下記コマンドを`コマンドプロンプト`で実行する
-    ```powershell
+4. `Windows 10`で`WSL`を再起動するため、下記コマンドを`PowerShell`で実行する
+    ```shell
+    > # WSLを再起動する
     > wsl --shutdown
     ```
 
 ##### 4.3.5.1. 参考サイト
 
-1. [WSL2によるホストのメモリ枯渇を防ぐための暫定対処 - Qiita](https://qiita.com/yoichiwo7/items/e3e13b6fe2f32c4c6120)
+1. [wsl2 メモリ 消費 改善 - Google 検索](https://www.google.com/search?q=wsl2+メモリ+消費+改善)
+    1. [WSL2によるホストのメモリ枯渇を防ぐための暫定対処 - Qiita](https://qiita.com/yoichiwo7/items/e3e13b6fe2f32c4c6120)
 
-#### 4.3.6. (任意) 日本語化
+#### 4.3.6. [任意] 日本語化
 
 実施することにより、英語を読む必要がなくなる。
 
-1. `Windows 10`で`Ubuntu 22.04`を起動する
-2. `Ubuntu 22.04`でパッケージの一覧を更新し、パッケージをアップグレードするため、下記コマンドを実行する
+1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
+2. `Ubuntu 22.04`でロケールを日本語・日本に更新するため、下記コマンドを実行する
     ```shell
+    $ # パッケージ一覧を更新し、パッケージをアップグレードする
     $ sudo apt -y update && sudo apt -y upgrade
-    ```
-3. `Ubuntu 22.04`で日本語言語パックをインストールするため、下記コマンドを実行する
-    ```shell
+    $ # 言語パック(日本語)をインストールする
     $ sudo apt -y install language-pack-ja
-    ```
-4. `Ubuntu 22.04`でロケールを日本語・日本に設定するため、下記コマンドを実行して再起動する
-    ```shell
+    $ # ロケールを日本語・日本に更新する
     $ sudo update-locale LANG=ja_JP.UTF-8
     ```
-5. `Ubuntu 22.04`でロケールが期待通りに設定されているか確認するため、下記コマンドを実行する
+3. `Windows 10`で`WSL`を再起動するため、下記コマンドを`PowerShell`で実行する
     ```shell
+    > # WSLを再起動する
+    > wsl --shutdown
+    ```
+4. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
+5. `Ubuntu 22.04`でロケールを日本語・日本に更新されているか確認するため、下記コマンドを実行する
+    ```shell
+    $ # ロケール情報を表示する
     $ locale
     LANG=ja_JP.UTF-8
     LANGUAGE=
@@ -323,74 +374,72 @@
     LC_IDENTIFICATION="ja_JP.UTF-8"
     LC_ALL=
     ```
-6. `Ubuntu 22.04`で日本語マニュアルをインストールするため、下記コマンドを実行する
+6. `Ubuntu 22.04`でマニュアル(日本語)をインストールするため、下記コマンドを実行する
     ```shell
+    $ # マニュアル(日本語)をインストールする
     $ sudo apt -y install manpages-ja manpages-ja-dev
     ```
 
 ##### 4.3.6.1. 参考サイト
 
-1. [WSL2のUbuntu 20.04を日本語化する - Qiita](https://qiita.com/myalpine/items/fb45b222924b2e61ea9f)
+1. [ubuntu wsl2 日本語化 - Google 検索](https://www.google.com/search?q=ubuntu+wsl2+日本語化)
+    1. [WSL2のUbuntu 20.04を日本語化する - Qiita](https://qiita.com/myalpine/items/fb45b222924b2e61ea9f)
 
-#### 4.3.7. (任意) エイリアス定義ファイルの作成
+#### 4.3.7. [任意] エイリアス定義ファイルの作成
 
-実施することにより、`Ubuntu on WSL2`と`Debian on DevContainer`でエイリアス定義を共有することができる。
+実施することにより、`Ubuntu 22.04`で作成したエイリアス定義を`Debian 11`で共有することができる。
 
-1. `Windows 10`で`Ubuntu 22.04`を起動する
+1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
 2. `Ubuntu 22.04`でエイリアス定義ファイルを作成するため、下記コマンドを実行する
     ```shell
+    $ # エイリアス定義ファイルを作成する
     $ touch ~/.bash_aliases
+    $ # 当該ファイルを開く
+    $ code ~/.bash_aliases
     ```
-3. `Ubuntu 22.04`でエイリアス定義ファイルを開くため、下記コマンドを実行する
+3. `Ubuntu 22.04`でエイリアス定義ファイルに下記内容を追記する
     ```shell
-    $ vi ~/.bash_aliases
+    alias ll='ls -AlF'
+    alias c='clear'
+    alias h='history'
     ```
-4. `Ubuntu 22.04`でエイリアス定義ファイルに下記のように任意のエイリアスを記載する
-    ```shell
-    alias ll='ls -AlF
-    ```
+    - 自作の`.bash_aliases`は`home-directory`リポジトリを参照する
 
-### 4.4. Docker
+### 4.4. Docker Desktop
 
-1. `Windows 10`で下記リンクからWindows版の`DockerDesktop`をダウンロードし、インストールする
+1. `Windows 10`で下記リンクからWindows版の`Docker Desktop`をダウンロードし、インストールする
     - [Get Started with Docker](https://www.docker.com/get-started/)
-2. `Windows 10`で`DockerDesktop`を起動する
-3. `Windows 10`でWSL2ベースエンジンを使用する設定にするため、`DockerDesktop`の下記設定を有効化する
+2. `Windows 10`で`Docker Desktop`を起動する
+3. `Windows 10`でWSL2ベースエンジンを使用する設定にするため、`Docker Desktop`の下記設定を有効化する
     - `Settings => General => Use the WSL 2 based engine`
-4. `Windows 10`で`Ubuntu 22.04`内でDockerのコマンドを実行できるようにするため、`DockerDesktop`の下記設定を有効化する
+4. `Windows 10`で`Ubuntu 22.04`内でDockerのコマンドを実行できるようにするため、`Docker Desktop`の下記設定を有効化する
     - `Settings => Resources => WSL Integration => Enable integration with my default WSL distro`
     - `Settings => Resources => WSL Integration => Ubuntu-22.04`
 
 #### 4.4.1. 参考サイト
 
-1. [WSL2 + VSCode DevContainerでFilesharingの警告 - Qiita](https://qiita.com/noonworks/items/5d49e019e794dbabe92a)
+1. [devcontainer wsl2 - Google 検索](https://www.google.com/search?q=devcontainer+wsl2)
+    1. [WSL2 + VSCode DevContainerでFilesharingの警告 - Qiita](https://qiita.com/noonworks/items/5d49e019e794dbabe92a)
 
 ## 5. 起動方法
 
-### 5.1. Docker
+### 5.1. Docker Desktop
 
 1. `Windows 10`で`Docker Desktop`を起動する
 
-### 5.2. Ubuntu on WSL2
+### 5.2. VSCode
 
-1. `Windows 10`で`Ubuntu 22.04`を起動する
-2. `Ubuntu 22.04`で`dev-container-python`ディレクトリに移動するため、下記コマンドを実行する
-    ```shell
-    $ cd ~/workspace/Git/dev-container-python/
-    ```
-3. `VSCode`を起動するため、下記コマンドを実行する
-    ```shell
-    $ code .
-    ```
-
-### 5.3. VSCode
-
-1. `VSCode`で`DevContainer`を起動するため、下記操作を実施する
-    - コマンドパレット(`F1`)から`Dev Containers: Reopen in Container`をクリックする
-2. ワークスペースとして開いているプロジェクトを切り替えるため、下記操作を実施する
-    - コマンドパレット(`F1`)から`Dev Containers: Attach to Running Container...`をクリックする
-      - この操作によりVSCodeのウィンドウが新しく開かれるが、不要であればこの操作はスキップしてよい
-    - `ファイル＞フォルダを開く...`から開きたいプロジェクトをクリックし、`OK`をクリックする
+1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
+2. `Ubuntu 22.04`でワークスペースをDevContainerフォルダに切り替えるため、下記操作を実施する
+    1. `ファイル＞フォルダを開く...`(`Ctrl+K Ctrl+O`)をクリックする
+    2. DevContainerフォルダを指定する
+      - `<Gitフォルダパス>/dev-container-python/`
+3. `Ubuntu 22.04`で`DevContainer`を起動するため、下記操作を実施する
+    1. コマンドパレット(`F1`)を表示する
+    2. `Dev Containers: Reopen in Container`をクリックする
+4. `Debian 11`でワークスペースを任意のフォルダに切り替えるため、下記操作を実施する
+    1. `ファイル＞フォルダを開く...`(`Ctrl+K Ctrl+O`)をクリックする
+    2. 任意のフォルダを指定する
 
 ## 6. トラブルシューティング
 
@@ -398,7 +447,7 @@
 
 ### 6.1. DockerDesktopの起動に失敗する
 
-- エラーログ
+#### 6.1.1. エラーログ
 
 ```log
 Docker.Core.HttpBadResponseException:
@@ -436,38 +485,41 @@ Docker.Core.HttpBadResponseException:
   場所 Docker.Engines.Engines.<StartAsync>d__23.MoveNext() 場所 C:\workspaces\4.16.x\src\github.com\docker\pinata\win\src\Docker.Engines\Engines.cs:行 109
 ```
 
-- 解決方法
+#### 6.1.2. 解決方法
 
-```powershell
-> wsl --shutdown
-```
+1. `Windows 10`で`WSL`を再起動するため、下記コマンドを`PowerShell`で実行する
+    ```shell
+    > # WSLを再起動する
+    > wsl --shutdown
+    ```
 
-#### 6.1.1. 参考サイト
+#### 6.1.3. 参考サイト
 
-- [docker timed out while polling for WSL distro integration to become ready - Google 検索](https://www.google.com/search?q=docker+timed+out+while+polling+for+WSL+distro+integration+to+become+ready)
-- [wsl 2 - Docker not starting up after installation - Stack Overflow](https://stackoverflow.com/questions/75384185/docker-not-starting-up-after-installation)
+1. [docker timed out while polling for WSL distro integration to become ready - Google 検索](https://www.google.com/search?q=docker+timed+out+while+polling+for+WSL+distro+integration+to+become+ready)
+    1. [wsl 2 - Docker not starting up after installation - Stack Overflow](https://stackoverflow.com/questions/75384185/docker-not-starting-up-after-installation)
 
 ### 6.2. DevContainerの起動に失敗する
 
-- ダイアログ
+#### 6.2.1. ダイアログ
 
 ```log
 コンテナの設定中にエラーが発生しました。
 ```
 
-- エラーログ
+#### 6.2.2. エラーログ
 
 ```log
 [2023-05-11T08:45:50.808Z] ERROR: docker endpoint for "default" not found
 ```
 
-- 解決方法
+#### 6.2.3. 解決方法
 
-```powershell
-> rm ~/.docker/contexts/meta/<SHA256>/meta.json
-```
+1. `Windows 10`でメタ情報を削除するため、下記コマンドを`PowerShell`で実行する
+    ```shell
+    > rm ~/.docker/contexts/meta/<SHA256>/meta.json
+    ```
 
-#### 6.2.1. 参考サイト
+#### 6.2.4. 参考サイト
 
-- [devcontainer ERROR: docker endpoint for "default" not found - Google 検索](https://www.google.com/search?q=devcontainer+ERROR%3A+docker+endpoint+for+%22default%22+not+found)
-- [[BUG] docker endpoint for "default" not found - Issue #9956 - docker/compose - GitHub](https://github.com/docker/compose/issues/9956)
+1. [devcontainer ERROR: docker endpoint for "default" not found - Google 検索](https://www.google.com/search?q=devcontainer+ERROR%3A+docker+endpoint+for+%22default%22+not+found)
+    1. [[BUG] docker endpoint for "default" not found - Issue #9956 - docker/compose - GitHub](https://github.com/docker/compose/issues/9956)

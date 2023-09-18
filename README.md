@@ -7,11 +7,11 @@
 - [3. 動作確認環境](#3-動作確認環境)
   - [3.1. 参考サイト](#31-参考サイト)
 - [4. セットアップ方法](#4-セットアップ方法)
-  - [4.1. VSCode (Visual Studio Code)](#41-vscode-visual-studio-code)
+  - [4.1. VSCode(Visual Studio Code)のインストール](#41-vscodevisual-studio-codeのインストール)
     - [4.1.1. 参考サイト](#411-参考サイト)
-  - [4.2. WSL2 (Windows Subsystem for Linux 2)](#42-wsl2-windows-subsystem-for-linux-2)
+  - [4.2. WSL2(Windows Subsystem for Linux 2)の有効化](#42-wsl2windows-subsystem-for-linux-2の有効化)
     - [4.2.1. 参考サイト](#421-参考サイト)
-  - [4.3. Ubuntu 22.04 on WSL2](#43-ubuntu-2204-on-wsl2)
+  - [4.3. Ubuntu(Ubuntu 22.04 on WSL2)のインストール](#43-ubuntuubuntu-2204-on-wsl2のインストール)
     - [4.3.1. Ubuntuのインストール](#431-ubuntuのインストール)
       - [4.3.1.1. 参考サイト](#4311-参考サイト)
     - [4.3.2. DNSサーバーの設定](#432-dnsサーバーの設定)
@@ -24,13 +24,13 @@
     - [4.3.6. \[任意\] 日本語化](#436-任意-日本語化)
       - [4.3.6.1. 参考サイト](#4361-参考サイト)
     - [4.3.7. \[任意\] エイリアス定義ファイルの作成](#437-任意-エイリアス定義ファイルの作成)
-  - [4.4. Docker Desktop](#44-docker-desktop)
+  - [4.4. Docker(Docker Desktop)のインストール](#44-dockerdocker-desktopのインストール)
     - [4.4.1. 参考サイト](#441-参考サイト)
 - [5. 起動方法](#5-起動方法)
-  - [5.1. Docker Desktop](#51-docker-desktop)
-  - [5.2. VSCode](#52-vscode)
+  - [5.1. Docker(Docker Desktop)の起動](#51-dockerdocker-desktopの起動)
+  - [5.2. VSCodeの起動](#52-vscodeの起動)
 - [6. トラブルシューティング](#6-トラブルシューティング)
-  - [6.1. DockerDesktopの起動に失敗する](#61-dockerdesktopの起動に失敗する)
+  - [6.1. Docker(Docker Desktop)の起動に失敗する](#61-dockerdocker-desktopの起動に失敗する)
     - [6.1.1. エラーログ](#611-エラーログ)
     - [6.1.2. 解決方法](#612-解決方法)
     - [6.1.3. 参考サイト](#613-参考サイト)
@@ -97,8 +97,8 @@
 ## 3. 動作確認環境
 
 - Windows 10 Pro 22H2
-- VSCode 1.81.1
-- Dev Containers v0.304.0
+- VSCode 1.82.2
+- Dev Containers v0.309.0
 - Docker Desktop 4.22.1
 - WSL2
 - Ubuntu 22.04
@@ -115,7 +115,7 @@
 
 上記の構成図通りに開発環境を構築する。
 
-### 4.1. VSCode (Visual Studio Code)
+### 4.1. VSCode(Visual Studio Code)のインストール
 
 1. `Windows 10`で下記リンクからWindows版の`VSCode`をダウンロードし、インストールする
     - [Download Visual Studio Code - Mac, Linux, Windows](https://code.visualstudio.com/download)
@@ -129,7 +129,7 @@
     1. [VSCode × Docker で快適な開発環境をあなたにも](https://weseek.co.jp/tech/2331/)
     2. [Get started with development Containers in Visual Studio Code](https://code.visualstudio.com/docs/remote/containers-tutorial)
 
-### 4.2. WSL2 (Windows Subsystem for Linux 2)
+### 4.2. WSL2(Windows Subsystem for Linux 2)の有効化
 
 1. `Windows 10`で`WSL`を有効化するため、下記コマンドを`PowerShell`(管理者)で実行する
     ```shell
@@ -150,7 +150,7 @@
 1. [wsl2 ubuntu インストール - Google 検索](https://www.google.com/search?q=wsl2+ubuntu+インストール)
     1. [WindowsにWSL2をインストールしてLinux（Ubuntu）環境を構築する | 株式会社ピース｜PEACE Inc.](https://www.4peace.co.jp/blog_tech/569/)
 
-### 4.3. Ubuntu 22.04 on WSL2
+### 4.3. Ubuntu(Ubuntu 22.04 on WSL2)のインストール
 
 #### 4.3.1. Ubuntuのインストール
 
@@ -405,7 +405,7 @@
     ```
     - 自作の`.bash_aliases`は`home-directory`リポジトリを参照する
 
-### 4.4. Docker Desktop
+### 4.4. Docker(Docker Desktop)のインストール
 
 1. `Windows 10`で下記リンクからWindows版の`Docker Desktop`をダウンロードし、インストールする
     - [Get Started with Docker](https://www.docker.com/get-started/)
@@ -423,11 +423,11 @@
 
 ## 5. 起動方法
 
-### 5.1. Docker Desktop
+### 5.1. Docker(Docker Desktop)の起動
 
 1. `Windows 10`で`Docker Desktop`を起動する
 
-### 5.2. VSCode
+### 5.2. VSCodeの起動
 
 1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
 2. `Ubuntu 22.04`でワークスペースをDevContainerフォルダに切り替えるため、下記操作を実施する
@@ -445,7 +445,7 @@
 
 本環境で頻発するエラーへの解決方法をまとめる。
 
-### 6.1. DockerDesktopの起動に失敗する
+### 6.1. Docker(Docker Desktop)の起動に失敗する
 
 #### 6.1.1. エラーログ
 

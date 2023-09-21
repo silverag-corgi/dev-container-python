@@ -7,34 +7,38 @@
 - [3. 動作確認環境](#3-動作確認環境)
   - [3.1. 参考サイト](#31-参考サイト)
 - [4. セットアップ方法](#4-セットアップ方法)
-  - [4.1. VSCode (Visual Studio Code)](#41-vscode-visual-studio-code)
+  - [4.1. VSCode(Visual Studio Code)のインストール](#41-vscodevisual-studio-codeのインストール)
     - [4.1.1. 参考サイト](#411-参考サイト)
-  - [4.2. WSL2 (Windows Subsystem for Linux 2)](#42-wsl2-windows-subsystem-for-linux-2)
+  - [4.2. WSL2(Windows Subsystem for Linux 2)の有効化](#42-wsl2windows-subsystem-for-linux-2の有効化)
     - [4.2.1. 参考サイト](#421-参考サイト)
-  - [4.3. Ubuntu 22.04 on WSL2](#43-ubuntu-2204-on-wsl2)
+  - [4.3. Ubuntu(Ubuntu 22.04 on WSL2)のインストール](#43-ubuntuubuntu-2204-on-wsl2のインストール)
     - [4.3.1. Ubuntuのインストール](#431-ubuntuのインストール)
       - [4.3.1.1. 参考サイト](#4311-参考サイト)
     - [4.3.2. DNSサーバーの設定](#432-dnsサーバーの設定)
       - [4.3.2.1. 参考サイト](#4321-参考サイト)
-    - [4.3.3. Gitの設定](#433-gitの設定)
+    - [4.3.3. \[DockerCLI版\] Docker(CLI)のインストール](#433-dockercli版-dockercliのインストール)
       - [4.3.3.1. 参考サイト](#4331-参考サイト)
-    - [4.3.4. Gitリポジトリのクローン](#434-gitリポジトリのクローン)
-    - [4.3.5. \[任意\] WSL2のメモリサイズの設定](#435-任意-wsl2のメモリサイズの設定)
+    - [4.3.4. \[DockerCLI版\] Docker(CLI)の自動起動の設定](#434-dockercli版-dockercliの自動起動の設定)
+      - [4.3.4.1. 参考サイト](#4341-参考サイト)
+    - [4.3.5. Gitの設定](#435-gitの設定)
       - [4.3.5.1. 参考サイト](#4351-参考サイト)
-    - [4.3.6. \[任意\] 日本語化](#436-任意-日本語化)
-      - [4.3.6.1. 参考サイト](#4361-参考サイト)
-    - [4.3.7. \[任意\] エイリアス定義ファイルの作成](#437-任意-エイリアス定義ファイルの作成)
-  - [4.4. Docker Desktop](#44-docker-desktop)
+    - [4.3.6. Gitリポジトリのクローン](#436-gitリポジトリのクローン)
+    - [4.3.7. \[任意\] WSL2のメモリサイズの設定](#437-任意-wsl2のメモリサイズの設定)
+      - [4.3.7.1. 参考サイト](#4371-参考サイト)
+    - [4.3.8. \[任意\] 日本語化](#438-任意-日本語化)
+      - [4.3.8.1. 参考サイト](#4381-参考サイト)
+    - [4.3.9. \[任意\] エイリアス定義ファイルの作成](#439-任意-エイリアス定義ファイルの作成)
+  - [4.4. \[DockerDesktop版\] Docker(Docker Desktop)のインストール](#44-dockerdesktop版-dockerdocker-desktopのインストール)
     - [4.4.1. 参考サイト](#441-参考サイト)
 - [5. 起動方法](#5-起動方法)
-  - [5.1. Docker Desktop](#51-docker-desktop)
-  - [5.2. VSCode](#52-vscode)
+  - [5.1. \[DockerDesktop版\] Docker(Docker Desktop)の起動](#51-dockerdesktop版-dockerdocker-desktopの起動)
+  - [5.2. VSCodeの起動](#52-vscodeの起動)
 - [6. トラブルシューティング](#6-トラブルシューティング)
-  - [6.1. DockerDesktopの起動に失敗する](#61-dockerdesktopの起動に失敗する)
+  - [6.1. \[DockerDesktop版\] Docker(Docker Desktop)の起動に失敗する](#61-dockerdesktop版-dockerdocker-desktopの起動に失敗する)
     - [6.1.1. エラーログ](#611-エラーログ)
     - [6.1.2. 解決方法](#612-解決方法)
     - [6.1.3. 参考サイト](#613-参考サイト)
-  - [6.2. DevContainerの起動に失敗する](#62-devcontainerの起動に失敗する)
+  - [6.2. \[DockerDesktop版\] DevContainerの起動に失敗する](#62-dockerdesktop版-devcontainerの起動に失敗する)
     - [6.2.1. ダイアログ](#621-ダイアログ)
     - [6.2.2. エラーログ](#622-エラーログ)
     - [6.2.3. 解決方法](#623-解決方法)
@@ -54,7 +58,19 @@
 コンテナ内にあるファイルの編集を`VSCode`上で行える。
 ソースコードに関しては、マウントすることによりコンテナ内で永続化できる。
 
-![](img/DevContainer構成図_現行.png)
+また、`Docker CLI`と`Docker Desktop`のどちらを用いるかで構成図が異なる。
+
+- DockerCLI版
+  ![](img/DevContainer構成図/DockerCLI版/DevContainer構成図_現行.png)
+- DockerDesktop版
+  <details>
+  <summary>
+  展開
+  </summary>
+
+  ![](img/DevContainer構成図/DockerDesktop版/DevContainer構成図_現行.png)
+
+  </details>
 
 ### 2.1. [補足事項] なぜWindowsから敢えてUbuntuを経由してコンテナを起動する構成にしているのか
 
@@ -85,7 +101,18 @@
 実際、あるリポジトリをビルドした際にはとても遅く感じた上に、コマンドの返却も10秒程度の遅延があった。
 このことから、元々は下記構成図であったが上記構成図に変更した。
 
-![](img/DevContainer構成図_旧式.png)
+- DockerCLI版
+  ![](img/DevContainer構成図/DockerCLI版/DevContainer構成図_旧式.png)
+- DockerDesktop版
+  <details>
+  <summary>
+  展開
+  </summary>
+
+  ![](img/DevContainer構成図/DockerDesktop版/DevContainer構成図_旧式.png)
+
+  </details>
+
 </details>
 
 #### 2.1.1. 参考サイト
@@ -97,9 +124,9 @@
 ## 3. 動作確認環境
 
 - Windows 10 Pro 22H2
-- VSCode 1.81.1
-- Dev Containers v0.304.0
-- Docker Desktop 4.22.1
+- VSCode 1.82.2
+- Dev Containers v0.309.0
+- Docker CLI 24.0.5 / Docker Desktop 4.22.1
 - WSL2
 - Ubuntu 22.04
   - CLI
@@ -115,7 +142,10 @@
 
 上記の構成図通りに開発環境を構築する。
 
-### 4.1. VSCode (Visual Studio Code)
+`Docker CLI`を用いた環境を構築したい場合は、タイトルの先頭に`DockerCLI版`がある手順を実施する。
+また、`Docker Desktop`を用いた環境を構築したい場合は、タイトルの先頭に`DockerDesktop版`がある手順を実施する。
+
+### 4.1. VSCode(Visual Studio Code)のインストール
 
 1. `Windows 10`で下記リンクからWindows版の`VSCode`をダウンロードし、インストールする
     - [Download Visual Studio Code - Mac, Linux, Windows](https://code.visualstudio.com/download)
@@ -129,7 +159,7 @@
     1. [VSCode × Docker で快適な開発環境をあなたにも](https://weseek.co.jp/tech/2331/)
     2. [Get started with development Containers in Visual Studio Code](https://code.visualstudio.com/docs/remote/containers-tutorial)
 
-### 4.2. WSL2 (Windows Subsystem for Linux 2)
+### 4.2. WSL2(Windows Subsystem for Linux 2)の有効化
 
 1. `Windows 10`で`WSL`を有効化するため、下記コマンドを`PowerShell`(管理者)で実行する
     ```shell
@@ -150,7 +180,7 @@
 1. [wsl2 ubuntu インストール - Google 検索](https://www.google.com/search?q=wsl2+ubuntu+インストール)
     1. [WindowsにWSL2をインストールしてLinux（Ubuntu）環境を構築する | 株式会社ピース｜PEACE Inc.](https://www.4peace.co.jp/blog_tech/569/)
 
-### 4.3. Ubuntu 22.04 on WSL2
+### 4.3. Ubuntu(Ubuntu 22.04 on WSL2)のインストール
 
 #### 4.3.1. Ubuntuのインストール
 
@@ -241,7 +271,162 @@
 1. [wsl2 ubuntu dns - Google 検索](https://www.google.com/search?q=wsl2+ubuntu+dns)
     1. [WSL2 で dns の名前解決ができなくなってネット接続できなくなった場合の対処方法 - Qiita](https://qiita.com/kkato233/items/1fc71bde5a6d94f1b982)
 
-#### 4.3.3. Gitの設定
+#### 4.3.3. [DockerCLI版] Docker(CLI)のインストール
+
+1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
+2. `Ubuntu 22.04`でAptリポジトリをセットアップするため、下記コマンドを実行する
+    ```shell
+    $ # Docker公式GPGキー(公開鍵)を追加する
+    $ sudo apt -y update
+    $ sudo apt install ca-certificates curl gnupg
+    $ sudo install -m 0755 -d /etc/apt/keyrings
+    $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    $ sudo chmod a+r /etc/apt/keyrings/docker.gpg
+    $ # Aptソースへリポジトリを追加する
+    $ echo \
+      "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+      "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+      sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    $ sudo apt -y update
+    ```
+3. `Ubuntu 22.04`でDockerパッケージ(`Docker CLI`など)をインストールするため、下記コマンドを実行する
+    ```shell
+    $ # Dockerパッケージをインストールする
+    $ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    ```
+4. `Ubuntu 22.04`で`docker`コマンドを`sudo`無しで使用できるように設定するため、下記コマンドを実行する
+    ```shell
+    $ # グループを追加する
+    $ sudo groupadd docker
+    $ # グループにユーザを追加する
+    $ sudo usermod -aG docker $USER
+    $ # グループを変更する
+    $ newgrp docker
+    ```
+5. `Ubuntu 22.04`でDockerデーモン設定ファイルを編集するため、下記コマンドを実行する
+    ```shell
+    $ # アクセス権限を設定する
+    $ sudo chmod 666 /etc/docker/daemon.json
+    $ # 当該ファイルを開く
+    $ code /etc/docker/daemon.json
+    ```
+6. `Ubuntu 22.04`でコンテナからのアクセスにてホスト名を解決するため、Dockerデーモン設定ファイルに下記内容を追記する
+    ```json
+    {
+      "dns": [
+        "192.168.11.1",
+        "8.8.8.8"
+      ]
+    }
+    ```
+    - [4.3.2. DNSサーバーの設定](#432-dnsサーバーの設定)の`7.`と同様の内容を追記する
+7. `Ubuntu 22.04`で`docker`の起動を確認するため、下記コマンドを実行する
+    ```shell
+    $ # サービスを起動する
+    $ sudo service docker start
+    * Starting Docker: docker [ OK ]
+    $ # サービスのステータスを確認する
+    $ sudo service docker status
+    * Docker is running
+    ```
+    - Dockerが起動していない場合
+      ```shell
+      $ # サービスのステータスを確認する
+      $ sudo service docker status
+      * Docker is not running
+      $ # ログを確認する
+      $ tail /var/log/docker.log -n 2
+      failed to start daemon: Error initializing network controller: error obtaining controller instance: unable to add return rule in DOCKER-ISOLATION-STAGE-1 chain:  (iptables failed: iptables --wait -A DOCKER-ISOLATION-STAGE-1 -j RETURN: iptables v1.8.7 (nf_tables):  RULE_APPEND failed (No such file or directory): rule in chain DOCKER-ISOLATION-STAGE-1
+      (exit status 4))
+      $ # OSパッケージ(iptables)を別バージョンに切り替える
+      $ sudo update-alternatives --config iptables
+      alternative iptables (/usr/sbin/iptables を提供) には 2 個の選択肢があります。
+
+        選択肢    パス                     優先度  状態
+      ------------------------------------------------------------
+      * 0            /usr/sbin/iptables-nft      20        自動モード
+        1            /usr/sbin/iptables-legacy   10        手動モード
+        2            /usr/sbin/iptables-nft      20        手動モード
+
+      現在の選択 [*] を保持するには <Enter>、さもなければ選択肢の番号のキーを押してください: 1
+      update-alternatives: /usr/sbin/iptables (iptables) を提供するためにマニュアルモードで /usr/sbin/iptables-legacy を使います
+      ```
+8. `Ubuntu 22.04`でコンテナの起動を確認するため、下記コマンドを実行する
+    ```shell
+    $ # コンテナを起動する
+    $ docker run hello-world
+
+    Hello from Docker!
+    ```
+
+##### 4.3.3.1. 参考サイト
+
+1. [docker cli ubuntu - Google 検索](https://www.google.com/search?q=docker+cli+ubuntu)
+    1. [Install Docker Engine on Ubuntu | Docker Docs](https://docs.docker.com/engine/install/ubuntu/)
+2. [docker cli ubuntu - Google 検索](https://www.google.com/search?q=docker+cli+ubuntu)
+    1. [Linux post-installation steps for Docker Engine | Docker Docs](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+3. [docker container wsl dns - Google 検索](https://www.google.com/search?q=docker+container+wsl+dns)
+    1. [wsl上のDocker container内でnpm install実行時にEAI_AGAINというエラーが出たときの対処法](https://kyo-log.com/eai_again_error_in_docker_container_on_wsl/)
+4. [Error initializing network controller: error obtaining controller instance: unable to add return rule in DOCKER-ISOLATION-STAGE-1 chain: - Google 検索](https://www.google.com/search?q=Error+initializing+network+controller%3A+error+obtaining+controller+instance%3A+unable+to+add+return+rule+in+DOCKER-ISOLATION-STAGE-1+chain%3A)
+    1. [WSL2のUbuntuを22.04にアップグレードしたらdockerが起動できなくなった - Qiita](https://qiita.com/tkc_tsuchiya/items/f7f4d502d8e2728f69c5)
+
+#### 4.3.4. [DockerCLI版] Docker(CLI)の自動起動の設定
+
+1. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)を編集するため、下記コマンドを実行する
+    ```shell
+    $ # 当該ファイルを開く
+    $ code /etc/wsl.conf
+    ```
+2. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)に下記内容を追記する
+    ```conf
+    [boot]
+    systemd = true  # systemdの自動起動をONにする
+    ```
+3. `Ubuntu 22.04`で`docker`の自動起動を設定するため、下記コマンドを実行する
+    ```shell
+    $ # サービスを起動する
+    $ systemctl enable docker
+    ```
+4. `Windows 10`で`WSL`を更新するため、下記コマンドを`PowerShell`で実行する
+    ```shell
+    > # WSLを更新する
+    > wsl --update
+    ```
+5. `Ubuntu 22.04`で`systemd`の起動を確認するため、下記コマンドを実行する
+    ```shell
+    $ # プロセス一覧を表示する
+    $ ps aux | grep systemd+
+    systemd+     164  0.0  0.3  25532 12292 ?        Ss   03:34   0:00 /lib/systemd/systemd-resolved
+    ```
+6. `Ubuntu 22.04`で`docker`の起動を確認するため、下記コマンドを実行する
+    ```shell
+    $ # サービスのステータスを確認する
+    $ systemctl status docker
+    docker.service - Docker Application Container Engine
+        Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+        Active: active (running) since Tue 2023-09-12 03:03:41 JST; 5 days ago
+    TriggeredBy: docker.socket
+          Docs: https://docs.docker.com
+      Main PID: 268 (dockerd)
+          Tasks: 25
+        Memory: 140.7M
+        CGroup: /system.slice/docker.service
+                └─268 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+    ```
+7. `Ubuntu 22.04`でコンテナの起動を確認するため、下記コマンドを実行する
+    ```shell
+    $ # コンテナを起動する
+    $ docker run hello-world
+
+    Hello from Docker!
+    ```
+
+##### 4.3.4.1. 参考サイト
+
+1. [wsl2 systemd docker - Google 検索](https://www.google.com/search?q=wsl2+systemd+docker)
+    1. [WSL2起動時にdockerなどのサービスを同時に起動する(systemd利用) - Qiita](https://qiita.com/junkor-1011/items/60f92800e9a80e3f70da)
+
+#### 4.3.5. Gitの設定
 
 1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
 2. `Ubuntu 22.04`でGit設定ファイルを作成して編集するため、下記コマンドを実行する
@@ -279,7 +464,7 @@
     core.autocrlf=input
     ```
 
-##### 4.3.3.1. 参考サイト
+##### 4.3.5.1. 参考サイト
 
 1. [.gitconfig おすすめ - Google 検索](https://www.google.com/search?q=.gitconfig+おすすめ)
     1. [Gitを使い始めたら一番最初にやりたい `git config`設定メモ](https://blog.katsubemakito.net/git/git-config-1st)
@@ -288,7 +473,7 @@
 3. [git autocrlf - Google 検索](https://www.google.com/search?q=git+autocrlf)
     1. [Git の自動改行コード変換 AutoCrlf ってどんな機能なの？ - ultra code](https://futureys.tokyo/what-is-autocrlf-of-git/)
 
-#### 4.3.4. Gitリポジトリのクローン
+#### 4.3.6. Gitリポジトリのクローン
 
 1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
 2. `Ubuntu 22.04`でGitフォルダを作成するため、下記コマンドを実行する
@@ -304,7 +489,7 @@
     $ git clone <リモートリポジトリのURL>
     ```
 
-#### 4.3.5. [任意] WSL2のメモリサイズの設定
+#### 4.3.7. [任意] WSL2のメモリサイズの設定
 
 実施することにより、`Windows 10`のメモリ枯渇を防ぐ。
 原因や発生する状況などは参考サイト`1.1.`を参照する。
@@ -329,12 +514,12 @@
     > wsl --shutdown
     ```
 
-##### 4.3.5.1. 参考サイト
+##### 4.3.7.1. 参考サイト
 
 1. [wsl2 メモリ 消費 改善 - Google 検索](https://www.google.com/search?q=wsl2+メモリ+消費+改善)
     1. [WSL2によるホストのメモリ枯渇を防ぐための暫定対処 - Qiita](https://qiita.com/yoichiwo7/items/e3e13b6fe2f32c4c6120)
 
-#### 4.3.6. [任意] 日本語化
+#### 4.3.8. [任意] 日本語化
 
 実施することにより、英語を読む必要がなくなる。
 
@@ -380,12 +565,12 @@
     $ sudo apt -y install manpages-ja manpages-ja-dev
     ```
 
-##### 4.3.6.1. 参考サイト
+##### 4.3.8.1. 参考サイト
 
 1. [ubuntu wsl2 日本語化 - Google 検索](https://www.google.com/search?q=ubuntu+wsl2+日本語化)
     1. [WSL2のUbuntu 20.04を日本語化する - Qiita](https://qiita.com/myalpine/items/fb45b222924b2e61ea9f)
 
-#### 4.3.7. [任意] エイリアス定義ファイルの作成
+#### 4.3.9. [任意] エイリアス定義ファイルの作成
 
 実施することにより、`Ubuntu 22.04`で作成したエイリアス定義を`Debian 11`で共有することができる。
 
@@ -405,7 +590,7 @@
     ```
     - 自作の`.bash_aliases`は`home-directory`リポジトリを参照する
 
-### 4.4. Docker Desktop
+### 4.4. [DockerDesktop版] Docker(Docker Desktop)のインストール
 
 1. `Windows 10`で下記リンクからWindows版の`Docker Desktop`をダウンロードし、インストールする
     - [Get Started with Docker](https://www.docker.com/get-started/)
@@ -423,11 +608,14 @@
 
 ## 5. 起動方法
 
-### 5.1. Docker Desktop
+`Docker CLI`を用いた環境を構築したい場合は、タイトルの先頭に`DockerCLI版`がある手順を実施する。
+また、`Docker Desktop`を用いた環境を構築したい場合は、タイトルの先頭に`DockerDesktop版`がある手順を実施する。
+
+### 5.1. [DockerDesktop版] Docker(Docker Desktop)の起動
 
 1. `Windows 10`で`Docker Desktop`を起動する
 
-### 5.2. VSCode
+### 5.2. VSCodeの起動
 
 1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
 2. `Ubuntu 22.04`でワークスペースをDevContainerフォルダに切り替えるため、下記操作を実施する
@@ -445,7 +633,10 @@
 
 本環境で頻発するエラーへの解決方法をまとめる。
 
-### 6.1. DockerDesktopの起動に失敗する
+`Docker CLI`を用いた環境を構築したい場合は、タイトルの先頭に`DockerCLI版`がある手順を実施する。
+また、`Docker Desktop`を用いた環境を構築したい場合は、タイトルの先頭に`DockerDesktop版`がある手順を実施する。
+
+### 6.1. [DockerDesktop版] Docker(Docker Desktop)の起動に失敗する
 
 #### 6.1.1. エラーログ
 
@@ -498,7 +689,7 @@ Docker.Core.HttpBadResponseException:
 1. [docker timed out while polling for WSL distro integration to become ready - Google 検索](https://www.google.com/search?q=docker+timed+out+while+polling+for+WSL+distro+integration+to+become+ready)
     1. [wsl 2 - Docker not starting up after installation - Stack Overflow](https://stackoverflow.com/questions/75384185/docker-not-starting-up-after-installation)
 
-### 6.2. DevContainerの起動に失敗する
+### 6.2. [DockerDesktop版] DevContainerの起動に失敗する
 
 #### 6.2.1. ダイアログ
 

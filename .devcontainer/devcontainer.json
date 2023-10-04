@@ -14,7 +14,7 @@
             "PYTHON_VERSION": "3.10"
         }
     },
-    "workspaceMount": "type=bind,src=${localEnv:HOME}/workspace/Git/python,dst=/root/workspace/Git/python,consistency=delegated",
+    "workspaceMount": "type=bind,src=${localEnv:HOME}/workspace,dst=/root/workspace,consistency=delegated",
     "workspaceFolder": "/root/workspace/Git/python/dev-container-python",
     "mounts": [
         "type=bind,src=${localEnv:HOME}/.bash_aliases,dst=/root/.bash_aliases,consistency=delegated",

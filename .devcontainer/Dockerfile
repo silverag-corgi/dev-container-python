@@ -21,6 +21,7 @@ RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-i
 
 # Config python.
 RUN python -m pip install --upgrade pip
+RUN python -m pip install --upgrade pipx
 RUN pipx install poetry
 RUN poetry config virtualenvs.in-project true
 

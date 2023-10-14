@@ -5,6 +5,10 @@
 // - https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/python-3
 //   - Most of the contents of this repository have been migrated to the above repository.
 {
+    // # General devcontainer.json properties
+    "name": "Python 3",
+    "remoteUser": "silverag",
+
     // # Scenario specific properties
     // ## Image or Dockerfile specific properties
     "build": {
@@ -26,9 +30,7 @@
 
     // ## Docker Compose specific properties
 
-    // # General devcontainer.json properties
-    "name": "Python 3",
-    "remoteUser": "silverag",
+    // ## Tool-specific properties
     "customizations": {
         "vscode": {
             "settings": {

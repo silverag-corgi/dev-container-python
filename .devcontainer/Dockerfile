@@ -19,19 +19,9 @@ RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-i
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends dnsutils
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends tree
 
-# Add user and group.
-ARG USER_NAME="user"
-ARG GROUP_NAME="user"
-ARG PASSWORD="password"
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-RUN groupmod -n ${GROUP_NAME} vscode
-RUN usermod -l ${USER_NAME} -d /home/${USER_NAME} -m -G sudo -a vscode
-RUN echo ${USER_NAME}:${PASSWORD} | chpasswd
-
 # Switch user to non-root.
-USER ${USER_NAME}
-WORKDIR /home/${USER_NAME}/
+USER vscode
+WORKDIR /home/vscode/
 
 # Install python related package.
 RUN python -m pip install --upgrade pip

@@ -7,7 +7,7 @@
 {
     // # General devcontainer.json properties
     "name": "Python 3",
-    "remoteUser": "silverag",
+    "remoteUser": "vscode",
 
     // # Scenario specific properties
     // ## Image or Dockerfile specific properties
@@ -15,17 +15,15 @@
         "dockerfile": "Dockerfile",
         "args": {
             "IMAGE_VERSION": "0.204.8",
-            "PYTHON_VERSION": "3.10",
-            "USER_NAME": "silverag",
-            "GROUP_NAME": "silverag"
+            "PYTHON_VERSION": "3.10"
         }
     },
-    "workspaceMount": "type=bind,src=${localEnv:HOME}/workspace,dst=/home/silverag/workspace,consistency=delegated",
-    "workspaceFolder": "/home/silverag/workspace/Git/python/dev-container-python",
+    "workspaceMount": "type=bind,src=${localEnv:HOME}/workspace,dst=/home/vscode/workspace,consistency=delegated",
+    "workspaceFolder": "/home/vscode/workspace/Git/python/dev-container-python",
     "mounts": [
-        "type=bind,src=${localEnv:HOME}/.bash_aliases,dst=/home/silverag/.bash_aliases,consistency=delegated",
-        "type=bind,src=${localEnv:HOME}/.gitconfig,dst=/home/silverag/.gitconfig,consistency=delegated",
-        "type=bind,src=${localWorkspaceFolder}/.home_directory/.bash_history,dst=/home/silverag/.bash_history,consistency=delegated"
+        "type=bind,src=${localEnv:HOME}/.bash_aliases,dst=/home/vscode/.bash_aliases,consistency=delegated",
+        "type=bind,src=${localEnv:HOME}/.gitconfig,dst=/home/vscode/.gitconfig,consistency=delegated",
+        "type=bind,src=${localWorkspaceFolder}/.home_directory/.bash_history,dst=/home/vscode/.bash_history,consistency=delegated"
     ],
 
     // ## Docker Compose specific properties

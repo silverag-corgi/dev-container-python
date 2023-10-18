@@ -11,22 +11,11 @@
 
     // # Scenario specific properties
     // ## Image or Dockerfile specific properties
-    "build": {
-        "dockerfile": "Dockerfile",
-        "args": {
-            "IMAGE_VERSION": "0.204.8",
-            "PYTHON_VERSION": "3.10"
-        }
-    },
-    "workspaceMount": "type=bind,src=${localEnv:HOME}/workspace,dst=/home/vscode/workspace,consistency=delegated",
-    "workspaceFolder": "/home/vscode/workspace/Git/python/dev-container-python",
-    "mounts": [
-        "type=bind,src=${localEnv:HOME}/.bash_aliases,dst=/home/vscode/.bash_aliases,consistency=delegated",
-        "type=bind,src=${localEnv:HOME}/.gitconfig,dst=/home/vscode/.gitconfig,consistency=delegated",
-        "type=bind,src=${localWorkspaceFolder}/.home_directory/.bash_history,dst=/home/vscode/.bash_history,consistency=delegated"
-    ],
 
     // ## Docker Compose specific properties
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "dev-container",
+    "workspaceFolder": "/home/vscode",
 
     // ## Tool-specific properties
     "customizations": {

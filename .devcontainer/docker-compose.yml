@@ -27,3 +27,10 @@ services:
         source: ../.home_directory/.bash_history
         target: /home/vscode/.bash_history
         consistency: delegated
+      - type: volume
+        source: vscode-server
+        target: /home/vscode/.vscode-server
+        consistency: delegated
+
+volumes:
+  vscode-server:

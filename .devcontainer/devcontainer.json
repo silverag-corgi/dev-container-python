@@ -85,7 +85,10 @@
 
                 // Programming language related
                 "leojhonsong.python-extension-pack",        // Python Extension Pack
-                "ms-python.isort"                           // isort
+                "ms-python.flake8",                         // Flake8
+                "ms-python.mypy-type-checker",              // Mypy Type Checker
+                "ms-python.isort",                          // isort
+                "ms-python.black-formatter"                 // Black Formatter
             ]
         }
     }

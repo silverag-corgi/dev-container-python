@@ -52,9 +52,6 @@ RUN echo "" >> ~/.bashrc && \
     echo "# display time in the bash_histroy." >> ~/.bashrc && \
     echo "export HISTTIMEFORMAT='[%Y/%m/%d %H:%M:%S %Z] '" >> ~/.bashrc
 
-# Create vscode-server directory.
-RUN mkdir -p /home/vscode/.vscode-server
-
 # Switch user to root.
 USER root
 WORKDIR /root/

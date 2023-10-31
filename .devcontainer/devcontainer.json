@@ -56,6 +56,10 @@
                 "mypy-type-checker.path": [
                     "${workspaceFolder}/.venv/bin/mypy"
                 ],
+                // "mypy-type-checker.args": [
+                //     // NOTE mypyのバグでpyproject.tomlが読み込まれない
+                //     "--config-file", "${workspaceFolder}/pyproject.toml"
+                // ],
 
                 // Extension - isort
                 "isort.path": [

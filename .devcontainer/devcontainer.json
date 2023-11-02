@@ -25,10 +25,10 @@
                 "[python]": {
                     // Editor
                     "editor.codeActionsOnSave": {
-                        "source.organizeImports": true  // NOTE ファイル保存時にインポート文を整理するため、フォーマッタ(`isort.path`)を適用する
+                        "source.organizeImports": true
                     },
-                    "editor.defaultFormatter": null,    // NOTE 既定のフォーマッタをOFFにする
-                    "editor.formatOnPaste": false,      // NOTE ファイル操作時にフォーマッタ(`python.formatting.provider`)を適用する
+                    "editor.defaultFormatter": "ms-python.black-formatter",
+                    "editor.formatOnPaste": false,
                     "editor.formatOnSave": true,
                     "editor.formatOnType": false
                 },
@@ -38,17 +38,6 @@
                     "${workspaceFolder}/.venv/lib/python3.10/site-packages"
                 ],
                 "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-                "python.formatting.provider": "black",  // NOTE Pythonモジュールに適用するフォーマッタ
-                "python.formatting.autopep8Path": "",
-                "python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
-                "python.linting.enabled": true,
-                "python.linting.lintOnSave": true,      // NOTE ファイル保存時にリンタ(`python.linting.XxxEnabled`)を適用する
-                "python.linting.flake8Enabled": true,
-                "python.linting.flake8Path": "${workspaceFolder}/.venv/bin/pflake8",
-                "python.linting.mypyEnabled": true,
-                "python.linting.mypyPath": "${workspaceFolder}/.venv/bin/mypy",
-                "python.linting.pylintEnabled": false,
-                "python.linting.pylintPath": "",
                 "python.terminal.activateEnvironment": false,
                 "python.venvPath": "${workspaceFolder}/.venv",
 
@@ -58,9 +47,28 @@
                 ],
                 "python.analysis.typeCheckingMode": "basic",
 
+                // Extension - Flake8
+                "flake8.path": [
+                    "${workspaceFolder}/.venv/bin/pflake8"
+                ],
+
+                // Extension - Mypy Type Checker
+                "mypy-type-checker.path": [
+                    "${workspaceFolder}/.venv/bin/mypy"
+                ],
+                // "mypy-type-checker.args": [
+                //     // NOTE mypyのバグでpyproject.tomlが読み込まれない
+                //     "--config-file", "${workspaceFolder}/pyproject.toml"
+                // ],
+
                 // Extension - isort
                 "isort.path": [
                     "${workspaceFolder}/.venv/bin/isort"
+                ],
+
+                // Extension - Black Formatter
+                "black-formatter.path": [
+                    "${workspaceFolder}/.venv/bin/black"
                 ],
 
                 // Extension - VS Code Counter
@@ -85,7 +93,10 @@
 
                 // Programming language related
                 "leojhonsong.python-extension-pack",        // Python Extension Pack
-                "ms-python.isort"                           // isort
+                "ms-python.flake8",                         // Flake8
+                "ms-python.mypy-type-checker",              // Mypy Type Checker
+                "ms-python.isort",                          // isort
+                "ms-python.black-formatter"                 // Black Formatter
             ]
         }
     }

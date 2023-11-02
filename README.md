@@ -294,7 +294,7 @@
     $ # Dockerパッケージをインストールする
     $ sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     ```
-4. `Ubuntu 22.04`で`docker`コマンドを`sudo`無しで使用できるように設定するため、下記コマンドを実行する
+4. `Ubuntu 22.04`で`docker`コマンドを一般ユーザで使用できるように設定するため、下記コマンドを実行する
     ```shell
     $ # グループを追加する
     $ sudo groupadd docker

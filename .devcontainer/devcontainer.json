@@ -25,15 +25,15 @@
                 "[python]": {
                     // Editor
                     "editor.codeActionsOnSave": {
-                        "source.organizeImports": true
+                        "source.organizeImports.ruff": true
                     },
-                    "editor.defaultFormatter": "ms-python.black-formatter",
+                    "editor.defaultFormatter": "charliermarsh.ruff",
                     "editor.formatOnPaste": false,
                     "editor.formatOnSave": true,
                     "editor.formatOnType": false
                 },
 
-                // Extension - Python (Python Extension Pack)
+                // Extension - Python (Python Extension Pack YC)
                 "python.autoComplete.extraPaths": [
                     "${workspaceFolder}/.venv/lib/python3.10/site-packages"
                 ],
@@ -41,15 +41,15 @@
                 "python.terminal.activateEnvironment": false,
                 "python.venvPath": "${workspaceFolder}/.venv",
 
-                // Extension - Pylance (Python Extension Pack)
+                // Extension - Pylance (Python Extension Pack YC)
                 "python.analysis.extraPaths": [
                     "${workspaceFolder}/.venv/lib/python3.10/site-packages"
                 ],
                 "python.analysis.typeCheckingMode": "basic",
 
-                // Extension - Flake8
-                "flake8.path": [
-                    "${workspaceFolder}/.venv/bin/pflake8"
+                // Extension - Ruff
+                "ruff.path": [
+                    "${workspaceFolder}/.venv/bin/ruff"
                 ],
 
                 // Extension - Mypy Type Checker
@@ -60,16 +60,6 @@
                 //     // NOTE mypyのバグでpyproject.tomlが読み込まれない
                 //     "--config-file", "${workspaceFolder}/pyproject.toml"
                 // ],
-
-                // Extension - isort
-                "isort.path": [
-                    "${workspaceFolder}/.venv/bin/isort"
-                ],
-
-                // Extension - Black Formatter
-                "black-formatter.path": [
-                    "${workspaceFolder}/.venv/bin/black"
-                ],
 
                 // Extension - VS Code Counter
                 "VSCodeCounter.exclude": [
@@ -87,16 +77,10 @@
             "extensions": [
                 // Common
                 "VisualStudioExptTeam.vscodeintellicode",   // Visual Studio IntelliCode
-                "EditorConfig.EditorConfig",                // EditorConfig for Visual Studio Code
-                "be5invis.toml",                            // TOML Language Support
                 "uctakeoff.vscode-counter",                 // VS Code Counter
 
                 // Programming language related
-                "leojhonsong.python-extension-pack",        // Python Extension Pack
-                "ms-python.flake8",                         // Flake8
-                "ms-python.mypy-type-checker",              // Mypy Type Checker
-                "ms-python.isort",                          // isort
-                "ms-python.black-formatter"                 // Black Formatter
+                "yuchenrcheng.vscode-python-pack-yc"        // Python Extension Pack YC
             ]
         }
     }

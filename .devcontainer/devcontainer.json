@@ -33,7 +33,7 @@
                     "editor.formatOnType": false
                 },
 
-                // Extension - Python (Python Extension Pack)
+                // Extension - Python (Python Extension Pack YC)
                 "python.autoComplete.extraPaths": [
                     "${workspaceFolder}/.venv/lib/python3.10/site-packages"
                 ],
@@ -41,7 +41,7 @@
                 "python.terminal.activateEnvironment": false,
                 "python.venvPath": "${workspaceFolder}/.venv",
 
-                // Extension - Pylance (Python Extension Pack)
+                // Extension - Pylance (Python Extension Pack YC)
                 "python.analysis.extraPaths": [
                     "${workspaceFolder}/.venv/lib/python3.10/site-packages"
                 ],
@@ -77,14 +77,10 @@
             "extensions": [
                 // Common
                 "VisualStudioExptTeam.vscodeintellicode",   // Visual Studio IntelliCode
-                "EditorConfig.EditorConfig",                // EditorConfig for Visual Studio Code
-                "be5invis.toml",                            // TOML Language Support
                 "uctakeoff.vscode-counter",                 // VS Code Counter
 
                 // Programming language related
-                "leojhonsong.python-extension-pack",        // Python Extension Pack
-                "charliermarsh.ruff",                       // Ruff
-                "ms-python.mypy-type-checker"               // Mypy Type Checker
+                "yuchenrcheng.vscode-python-pack-yc"        // Python Extension Pack YC
             ]
         }
     }

@@ -145,8 +145,8 @@
 
 上記の構成図通りに開発環境を構築する。
 
-`Docker CLI`を用いた環境を構築したい場合は、タイトルの先頭に`DockerCLI版`がある手順を実施する。
-また、`Docker Desktop`を用いた環境を構築したい場合は、タイトルの先頭に`DockerDesktop版`がある手順を実施する。
+`Docker CLI`を用いた環境の場合はタイトルの先頭に`DockerCLI版`がある手順を実施する。
+また、`Docker Desktop`を用いた環境の場合はタイトルの先頭に`DockerDesktop版`がある手順を実施する。
 
 ### 4.1. VSCode(Visual Studio Code)のインストール
 
@@ -245,7 +245,7 @@
 5. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)に下記内容を追記する
     ```conf
     [network]
-    generateResolvConf = false  # 名前解決設定ファイルの自動生成をOFFにする
+    generateResolvConf=false  # 名前解決設定ファイルの自動生成をOFFにする
     ```
 6. `Ubuntu 22.04`で名前解決設定ファイルを作成して編集するため、下記コマンドを実行する
     ```shell
@@ -467,13 +467,15 @@
     ```shell
     $ # グループを追加する
     $ sudo groupadd docker
-    $ # グループにユーザを追加する
+    $ # 上記グループにユーザを追加する
     $ sudo usermod -aG docker $USER
-    $ # グループを変更する
+    $ # 上記グループに変更する
     $ newgrp docker
     ```
 5. `Ubuntu 22.04`でDockerデーモン設定ファイルを編集するため、下記コマンドを実行する
     ```shell
+    $ # 当該ファイルを作成する
+    $ sudo touch /etc/docker/daemon.json
     $ # アクセス権限を設定する
     $ sudo chmod 666 /etc/docker/daemon.json
     $ # 当該ファイルを開く
@@ -532,11 +534,10 @@
 
 1. [docker cli ubuntu - Google 検索](https://www.google.com/search?q=docker+cli+ubuntu)
     1. [Install Docker Engine on Ubuntu | Docker Docs](https://docs.docker.com/engine/install/ubuntu/)
-2. [docker cli ubuntu - Google 検索](https://www.google.com/search?q=docker+cli+ubuntu)
-    1. [Linux post-installation steps for Docker Engine | Docker Docs](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
-3. [docker container wsl dns - Google 検索](https://www.google.com/search?q=docker+container+wsl+dns)
+    2. [Linux post-installation steps for Docker Engine | Docker Docs](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+2. [docker container wsl dns - Google 検索](https://www.google.com/search?q=docker+container+wsl+dns)
     1. [wsl上のDocker container内でnpm install実行時にEAI_AGAINというエラーが出たときの対処法](https://kyo-log.com/eai_again_error_in_docker_container_on_wsl/)
-4. [Error initializing network controller: error obtaining controller instance: unable to add return rule in DOCKER-ISOLATION-STAGE-1 chain: - Google 検索](https://www.google.com/search?q=Error+initializing+network+controller%3A+error+obtaining+controller+instance%3A+unable+to+add+return+rule+in+DOCKER-ISOLATION-STAGE-1+chain%3A)
+3. [Error initializing network controller: error obtaining controller instance: unable to add return rule in DOCKER-ISOLATION-STAGE-1 chain: - Google 検索](https://www.google.com/search?q=Error+initializing+network+controller%3A+error+obtaining+controller+instance%3A+unable+to+add+return+rule+in+DOCKER-ISOLATION-STAGE-1+chain%3A)
     1. [WSL2のUbuntuを22.04にアップグレードしたらdockerが起動できなくなった - Qiita](https://qiita.com/tkc_tsuchiya/items/f7f4d502d8e2728f69c5)
 
 #### 4.4.2. [DockerCLI版] Dockerの自動起動の設定
@@ -549,12 +550,12 @@
 2. `Ubuntu 22.04`でWSL設定ファイル(ディストリビューション版)に下記内容を追記する
     ```conf
     [boot]
-    systemd = true  # systemdの自動起動をONにする
+    systemd=true # systemdの自動起動をONにする
     ```
 3. `Ubuntu 22.04`で`docker`の自動起動を設定するため、下記コマンドを実行する
     ```shell
     $ # サービスを起動する
-    $ systemctl enable docker
+    $ sudo systemctl enable docker
     ```
 4. `Windows 10`で`WSL`を更新するため、下記コマンドを`PowerShell`で実行する
     ```shell
@@ -613,8 +614,8 @@
 
 ## 5. 起動方法
 
-`Docker CLI`を用いた環境を構築したい場合は、タイトルの先頭に`DockerCLI版`がある手順を実施する。
-また、`Docker Desktop`を用いた環境を構築したい場合は、タイトルの先頭に`DockerDesktop版`がある手順を実施する。
+`Docker CLI`を用いた環境の場合はタイトルの先頭に`DockerCLI版`がある手順を実施する。
+また、`Docker Desktop`を用いた環境の場合はタイトルの先頭に`DockerDesktop版`がある手順を実施する。
 
 ### 5.1. Dockerの起動
 
@@ -644,8 +645,8 @@
 
 本環境で頻発するエラーへの解決方法をまとめる。
 
-`Docker CLI`を用いた環境を構築したい場合は、タイトルの先頭に`DockerCLI版`がある手順を実施する。
-また、`Docker Desktop`を用いた環境を構築したい場合は、タイトルの先頭に`DockerDesktop版`がある手順を実施する。
+`Docker CLI`を用いた環境の場合はタイトルの先頭に`DockerCLI版`がある手順を実施する。
+また、`Docker Desktop`を用いた環境の場合はタイトルの先頭に`DockerDesktop版`がある手順を実施する。
 
 ### 6.1. [DockerDesktop版] Dockerの起動に失敗する
 

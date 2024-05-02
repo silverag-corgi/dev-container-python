@@ -3,17 +3,19 @@
 - [1. 概要](#1-概要)
 - [2. 動作環境](#2-動作環境)
   - [2.1. 参考サイト](#21-参考サイト)
-- [3. 起動方法](#3-起動方法)
-  - [3.1. Dockerの起動](#31-dockerの起動)
-    - [3.1.1. \[DockerCLI版\] Dockerの起動](#311-dockercli版-dockerの起動)
-    - [3.1.2. \[DockerDesktop版\] Dockerの起動](#312-dockerdesktop版-dockerの起動)
-  - [3.2. VSCodeの起動](#32-vscodeの起動)
-- [4. トラブルシューティング](#4-トラブルシューティング)
-  - [4.1. \[DockerDesktop版\] DevContainerの起動に失敗する](#41-dockerdesktop版-devcontainerの起動に失敗する)
-    - [4.1.1. ダイアログ](#411-ダイアログ)
-    - [4.1.2. エラーログ](#412-エラーログ)
-    - [4.1.3. 解決方法](#413-解決方法)
-    - [4.1.4. 参考サイト](#414-参考サイト)
+- [3. セットアップ方法](#3-セットアップ方法)
+  - [3.1. コマンド履歴ファイルの追跡除外](#31-コマンド履歴ファイルの追跡除外)
+- [4. 起動方法](#4-起動方法)
+  - [4.1. Dockerの起動](#41-dockerの起動)
+    - [4.1.1. \[DockerCLI版\] Dockerの起動](#411-dockercli版-dockerの起動)
+    - [4.1.2. \[DockerDesktop版\] Dockerの起動](#412-dockerdesktop版-dockerの起動)
+  - [4.2. VSCodeの起動](#42-vscodeの起動)
+- [5. トラブルシューティング](#5-トラブルシューティング)
+  - [5.1. \[DockerDesktop版\] DevContainerの起動に失敗する](#51-dockerdesktop版-devcontainerの起動に失敗する)
+    - [5.1.1. ダイアログ](#511-ダイアログ)
+    - [5.1.2. エラーログ](#512-エラーログ)
+    - [5.1.3. 解決方法](#513-解決方法)
+    - [5.1.4. 参考サイト](#514-参考サイト)
 
 ## 1. 概要
 
@@ -41,22 +43,43 @@
 1. [Docker DevContainer - Google 検索](https://www.google.com/search?q=Docker+DevContainer)
     - [Developing inside a Container using Visual Studio Code Remote Development](https://code.visualstudio.com/docs/remote/containers#_system-requirements)
 
-## 3. 起動方法
+## 3. セットアップ方法
+
+### 3.1. コマンド履歴ファイルの追跡除外
+
+事前に本リポジトリをクローンすること。
+
+1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
+2. `Ubuntu 22.04`で本リポジトリのローカルリポジトリに移動するため、下記コマンドを実行する
+    ```shell
+    $ cd <本リポジトリのローカルリポジトリのパス>
+    ```
+3. `Ubuntu 22.04`でコマンド履歴ファイルを追跡から除外するため、下記コマンドを実行する
+    ```shell
+    $ git update-index --skip-worktree ./.home_directory/.bash_history
+    ```
+4. `Ubuntu 22.04`で期待通りに設定されているか確認するため、下記コマンドを実行する
+    ```shell
+    $ git ls-files -v | grep ^S
+    S .home_directory/.bash_history
+    ```
+
+## 4. 起動方法
 
 `Docker CLI`を用いた環境の場合はタイトルの先頭に`DockerCLI版`がある手順を実施する。
 また、`Docker Desktop`を用いた環境の場合はタイトルの先頭に`DockerDesktop版`がある手順を実施する。
 
-### 3.1. Dockerの起動
+### 4.1. Dockerの起動
 
-#### 3.1.1. [DockerCLI版] Dockerの起動
+#### 4.1.1. [DockerCLI版] Dockerの起動
 
 1. `Docker CLI`は`Ubuntu 22.04`が自動的に起動する
 
-#### 3.1.2. [DockerDesktop版] Dockerの起動
+#### 4.1.2. [DockerDesktop版] Dockerの起動
 
 1. `Windows 10`で`Docker Desktop`を起動する
 
-### 3.2. VSCodeの起動
+### 4.2. VSCodeの起動
 
 1. `Windows 10`で`VSCode`を起動し、画面左側のリモートエクスプローラーに表示されている`Ubuntu-22.04`に接続する
 2. `Ubuntu 22.04`でワークスペースをDevContainerフォルダに切り替えるため、下記操作を実施する
@@ -70,35 +93,35 @@
     1. `ファイル＞フォルダを開く...`(`Ctrl+K Ctrl+O`)をクリックする
     2. 任意のフォルダを指定する
 
-## 4. トラブルシューティング
+## 5. トラブルシューティング
 
 本環境で頻発するエラーへの解決方法をまとめる。
 
 `Docker CLI`を用いた環境の場合はタイトルの先頭に`DockerCLI版`がある手順を実施する。
 また、`Docker Desktop`を用いた環境の場合はタイトルの先頭に`DockerDesktop版`がある手順を実施する。
 
-### 4.1. [DockerDesktop版] DevContainerの起動に失敗する
+### 5.1. [DockerDesktop版] DevContainerの起動に失敗する
 
-#### 4.1.1. ダイアログ
+#### 5.1.1. ダイアログ
 
 ```log
 コンテナの設定中にエラーが発生しました。
 ```
 
-#### 4.1.2. エラーログ
+#### 5.1.2. エラーログ
 
 ```log
 [2023-05-11T08:45:50.808Z] ERROR: docker endpoint for "default" not found
 ```
 
-#### 4.1.3. 解決方法
+#### 5.1.3. 解決方法
 
 1. `Windows 10`でメタ情報を削除するため、下記コマンドを`PowerShell`で実行する
     ```shell
     > rm ~/.docker/contexts/meta/<SHA256>/meta.json
     ```
 
-#### 4.1.4. 参考サイト
+#### 5.1.4. 参考サイト
 
 1. [devcontainer ERROR: docker endpoint for "default" not found - Google 検索](https://www.google.com/search?q=devcontainer+ERROR%3A+docker+endpoint+for+%22default%22+not+found)
     1. [[BUG] docker endpoint for "default" not found - Issue #9956 - docker/compose - GitHub](https://github.com/docker/compose/issues/9956)

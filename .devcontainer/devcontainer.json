@@ -1,9 +1,10 @@
 // Format details:
 // - https://containers.dev/implementors/json_reference/
 // Template Repository:
-// - https://github.com/devcontainers/templates/tree/template_go-postgres_1.2.2/src/python
+// - https://github.com/devcontainers/templates/tree/main/src/python
 // - https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/python-3
-//   - Most of the contents of this repository have been migrated to the above repository.
+//   - This repository has been archived.
+//   - Most of the contents of this repository have been migrated to the above organization (devcontainers).
 {
     // # General devcontainer.json properties
     "name": "Python 3",

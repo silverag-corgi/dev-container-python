@@ -1,7 +1,8 @@
 # Template Repository:
-# - https://github.com/devcontainers/templates/tree/template_go-postgres_1.2.2/src/python
+# - https://github.com/devcontainers/templates/tree/main/src/python
 # - https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/python-3
-#   - Most of the contents of this repository have been migrated to the above repository.
+#   - This repository has been archived.
+#   - Most of the contents of this repository have been migrated to the above organization (devcontainers).
 
 # Get a image.
 # - https://mcr.microsoft.com/v2/devcontainers/python/tags/list
@@ -9,8 +10,8 @@
 ARG IMAGE_VERSION="0"           # x, x.x, x.x.x
 ARG PYTHON_VERSION="3"          # x, x.x
 ARG DEBIAN_VERSION="bullseye"   # bullseye: Debian 11, buster: Debian 10
-# FROM mcr.microsoft.com/devcontainers/python:${IMAGE_VERSION}-${PYTHON_VERSION}-${DEBIAN_VERSION}
-FROM mcr.microsoft.com/vscode/devcontainers/python:${IMAGE_VERSION}-${PYTHON_VERSION}-${DEBIAN_VERSION}
+FROM mcr.microsoft.com/devcontainers/python:${IMAGE_VERSION}-${PYTHON_VERSION}-${DEBIAN_VERSION}
+# FROM mcr.microsoft.com/vscode/devcontainers/python:${IMAGE_VERSION}-${PYTHON_VERSION}-${DEBIAN_VERSION}
 
 # Install packages.
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends task-japanese

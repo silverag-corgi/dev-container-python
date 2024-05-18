@@ -6,9 +6,9 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
       args:
-        IMAGE_VERSION: ${IMAGE_VERSION:-0.204.8}
-        PYTHON_VERSION: ${PYTHON_VERSION:-3.10}
-        DEBIAN_VERSION: ${DEBIAN_VERSION:-bullseye}
+        IMAGE_VERSION: ${IMAGE_VERSION:-0.204.8}    # x, x.x, x.x.x
+        PYTHON_VERSION: ${PYTHON_VERSION:-3.10}     # x, x.x
+        DEBIAN_VERSION: ${DEBIAN_VERSION:-bullseye} # bullseye: Debian 11, buster: Debian 10
     command: sleep infinity
     volumes:
       - type: bind

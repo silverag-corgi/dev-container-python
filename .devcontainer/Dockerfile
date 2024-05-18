@@ -7,9 +7,9 @@
 # Get a image.
 # - https://mcr.microsoft.com/v2/devcontainers/python/tags/list
 # - https://mcr.microsoft.com/v2/vscode/devcontainers/python/tags/list
-ARG IMAGE_VERSION="0"           # x, x.x, x.x.x
-ARG PYTHON_VERSION="3"          # x, x.x
-ARG DEBIAN_VERSION="bullseye"   # bullseye: Debian 11, buster: Debian 10
+ARG IMAGE_VERSION
+ARG PYTHON_VERSION
+ARG DEBIAN_VERSION
 FROM mcr.microsoft.com/devcontainers/python:${IMAGE_VERSION}-${PYTHON_VERSION}-${DEBIAN_VERSION}
 # FROM mcr.microsoft.com/vscode/devcontainers/python:${IMAGE_VERSION}-${PYTHON_VERSION}-${DEBIAN_VERSION}
 

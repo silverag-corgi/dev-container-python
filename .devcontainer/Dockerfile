@@ -38,7 +38,5 @@ RUN python -m pip install --upgrade pipx
 RUN pipx install poetry
 RUN poetry config virtualenvs.in-project true
 
-# Add a proc to display time in the bash_histroy.
-RUN echo "" >> ~/.bashrc && \
-    echo "# display time in the bash_histroy." >> ~/.bashrc && \
-    echo "export HISTTIMEFORMAT='[%Y/%m/%d %H:%M:%S %Z] '" >> ~/.bashrc
+# Display datetime in the bash_histroy.
+ENV HISTTIMEFORMAT='[%Y/%m/%d %H:%M:%S %Z] '

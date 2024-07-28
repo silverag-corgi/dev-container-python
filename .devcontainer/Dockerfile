@@ -24,6 +24,8 @@ RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-i
 RUN sed -i -E 's/# (ja_JP.UTF-8)/\1/' /etc/locale.gen
 RUN locale-gen
 ENV LANG=ja_JP.UTF-8
+ENV LANGUAGE=ja_JP.UTF-8
+ENV LC_ALL=ja_JP.UTF-8
 
 # Set a timezone.
 RUN ln -sf /usr/share/zoneinfo/Japan /etc/localtime

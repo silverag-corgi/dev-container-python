@@ -28,7 +28,7 @@ ENV LANGUAGE=ja_JP.UTF-8
 ENV LC_ALL=ja_JP.UTF-8
 
 # Set a timezone.
-RUN ln -sf /usr/share/zoneinfo/Japan /etc/localtime
+RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && echo "Asia/Tokyo" > /etc/timezone
 
 # Switch user to non-root.
 USER vscode

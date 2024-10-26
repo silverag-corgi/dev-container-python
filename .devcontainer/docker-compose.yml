@@ -9,8 +9,13 @@ services:
         IMAGE_VERSION: ${IMAGE_VERSION:-0.204.8}    # x, x.x, x.x.x
         PYTHON_VERSION: ${PYTHON_VERSION:-3.10}     # x, x.x
         DEBIAN_VERSION: ${DEBIAN_VERSION:-bullseye} # bullseye: Debian 11, buster: Debian 10
+        HOST_DOCKER_GID: ${HOST_DOCKER_GID:-1001}   # 1001
     command: sleep infinity
     volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        consistency: delegated
       - type: bind
         source: ~/.bashrc
         target: /home/vscode/.bashrc

@@ -20,6 +20,20 @@ RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-i
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends dnsutils
 RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install --no-install-recommends tree
 
+# Install Docker.
+RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install ca-certificates curl gnupg
+RUN install -m 0755 -d /etc/apt/keyrings
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN chmod a+r /etc/apt/keyrings/docker.gpg
+RUN echo \
+    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+    tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt update && export DEBIAN_FRONTEND=noninteractive && apt -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+ARG HOST_DOCKER_GID
+RUN groupmod docker -g ${HOST_DOCKER_GID}
+RUN usermod vscode -aG docker
+
 # Set a language and a territory.
 RUN sed -i -E 's/# (ja_JP.UTF-8)/\1/' /etc/locale.gen
 RUN locale-gen

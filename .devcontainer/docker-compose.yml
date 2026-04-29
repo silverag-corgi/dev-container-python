@@ -29,6 +29,14 @@ services:
         target: /home/vscode/.gitconfig
         consistency: delegated
       - type: bind
+        source: ~/.gitconfig-business
+        target: /home/vscode/.gitconfig-business
+        consistency: delegated
+      - type: bind
+        source: ~/.gitmessage
+        target: /home/vscode/.gitmessage
+        consistency: delegated
+      - type: bind
         source: ../.home_directory/.bash_history
         target: /home/vscode/.bash_history
         consistency: delegated

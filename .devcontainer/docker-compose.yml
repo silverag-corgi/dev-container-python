@@ -29,8 +29,8 @@ services:
         target: /home/vscode/.gitconfig
         consistency: delegated
       - type: bind
-        source: ~/.gitconfig-business
-        target: /home/vscode/.gitconfig-business
+        source: ~/.gitconfig_business
+        target: /home/vscode/.gitconfig_business
         consistency: delegated
       - type: bind
         source: ~/.gitmessage
